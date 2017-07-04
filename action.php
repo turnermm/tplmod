@@ -65,6 +65,7 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
       
          if($dateorip == 'NEITHER') return;
          $logos = $this->getConf('logos');   
+         if(empty($logos)) return;
          $logos = explode(',',$logos);
          
          if($dateorip == 'DAY') {
@@ -131,7 +132,7 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
       
          if($dateorip == 'NEITHER') return;
          $tags = $this->getConf('taglines');   
-       
+         if(empty($tags)) return;
          $tags = explode(',',$tags);
  
          if($dateorip == 'DAY') {
