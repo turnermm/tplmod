@@ -40,7 +40,7 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
                $this->logos($ips,$remote_addr,$dateorip);        
            }
            else if($which == 'TAG') {
-               $this->tag($ips,$remote_addr,$dateorip);        
+               $this->tags($ips,$remote_addr,$dateorip);        
            }
            if($this->getConf('rotate_title')) {
               $this->wiki_names($ips,$remote_addr,$dateorip);                 
