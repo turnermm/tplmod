@@ -12,3 +12,4 @@ $conf['rotatewhich'] ='NONE';
 $conf['ptools_xcl'] =  'dokuwiki__top';
 $conf['wiki_names'] = "";
 $conf['rotate_title'] = 0;
+$conf['tag_date_format']= '';

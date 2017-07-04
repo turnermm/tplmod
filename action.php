@@ -40,7 +40,7 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
                $this->logos($ips,$remote_addr,$dateorip);        
            }
            else if($which == 'TAG') {
-               $this->tag($ips,$remote_addr,$dateorip);        
+               $this->tags($ips,$remote_addr,$dateorip);        
            }
            if($this->getConf('rotate_title')) {
               $this->wiki_names($ips,$remote_addr,$dateorip);                 
@@ -128,6 +128,11 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
    function tags($ips,$remote_addr, $dateorip) {      
          global $JSINFO;         
          if(!$remote_addr || $dateorip == 'NEITHER') return;
+          $opt = $this->getConf('tag_date_format');
+          if($opt) {
+          $JSINFO['tmplft_tag'] = date($opt); 
+          return;              
+          }
       
          if($dateorip == 'NEITHER') return;
          $tags = $this->getConf('taglines');   
