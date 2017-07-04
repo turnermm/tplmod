@@ -5,6 +5,7 @@ $meta['ptools_xcl'] = array('string');
 $meta['profile'] = array('onoff');
 $meta['search'] = array('onoff');
 $meta['taglines']  = array('string');
+$meta['tag_date_format'] = array('string');
 $meta['logos'] = array('string');
 $meta['ips']  = array('string');
 $meta['rotate_title'] = array('onoff');

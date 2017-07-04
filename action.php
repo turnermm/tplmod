@@ -129,6 +129,11 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
    function tags($ips,$remote_addr, $dateorip) {      
          global $JSINFO;         
          if(!$remote_addr || $dateorip == 'NEITHER') return;
+          $opt = $this->getConf('tag_date_format');
+          if($opt) {
+          $JSINFO['tmplft_tag'] = date($opt); 
+          return;              
+          }
       
          if($dateorip == 'NEITHER') return;
          $tags = $this->getConf('taglines');   
