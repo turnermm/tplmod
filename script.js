@@ -23,9 +23,6 @@ if(JSINFO['tmplft_title'] ) {
 }
 if(JSINFO['tmplft_tag'] ) {
 jQuery("p.claim").html(function(i,val) {
-   if(matches = val.match(/^\s*<.*?>(.*?)<\//)) {
- 
-   }
        if(val.match(/<.*?>/)) {
           val = val.replace(/^\s*(<.*?>)(.*?)(<\/)/,function(m,m1,m2,m3) {
               return m1 + JSINFO['tmplft_tag']  +  m3;
