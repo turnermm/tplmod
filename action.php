@@ -179,7 +179,7 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
                 $repl = array("","","backlink");     
                 $pagetools=strtolower(preg_replace($pat, $repl,$pagetools));       
                 if(strpos($pagetools,'all') !== false) {
-                   $pagetools  .= ',\w+';               
+                   $pagetools  = '\w+';               
                 }                
                 $JSINFO['tmplft_pagetools'] = $pagetools;         
             }
@@ -188,7 +188,7 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
              $JSINFO['tmplft_ptools_xcl'] =  "";
              $xcl = $this->getConf('ptools_xcl');
              $xcl = preg_replace("/\s/","",$xcl);
-             if(!empty($xcl))  $JSINFO['tmplft_ptools_xcl'] .= $xcl;          
+             if(!empty($xcl)) $JSINFO['tmplft_ptools_xcl'] = $xcl;          
             
             }
             
