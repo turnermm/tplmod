@@ -82,7 +82,7 @@ function tplmod_toggle_aside() {
         display = true;
     }
     else {
-        content_width = tplmod_toggle_open
+        content_width = tplmod_toggle_open;
         display = false;
     }
     jQuery("div#dokuwiki__aside").toggle(display);
