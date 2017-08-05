@@ -8,6 +8,7 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
     
     function register(Doku_Event_Handler $controller) {
         $controller->register_hook(DOKUWIKI_STARTED, 'BEFORE', $this, 'dwstarted');
+        $controller->register_hook('TEMPLATE_SITETOOLS_DISPLAY', 'BEFORE', $this, 'action_link', array('site'));       
     }
 
     function dwstarted(DOKU_EVENT $event, $param) {
@@ -192,5 +193,12 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
             
             }
             
+  function action_link(&$event, $param)  {
+         global $ID, $ACT, $INPUT;
+         $sbar = $this->getConf('toggle_sidebar');
+         if($ACT != 'show' || !$sbar) return;     
+         $name = $this->getLang('toggle_name');
+         $event->data['items']['tplmod'] = '<li><a href="javascript:tplmod_toggle_aside();void(0);"  rel="nofollow"   title="' .$name. '">'. $name.'</a></li>';
+    }
             
 }

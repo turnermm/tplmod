@@ -13,4 +13,5 @@ $lang['rotatewhich'] = "If rotating the logo and/or tag line, select which to ro
 $lang['ptools_xcl'] = ' If pagetools is set to <code>All</code>, you can retain selected tools by entering  a comma separated list of unique words from their urls in this text box';
 $lang['wiki_names'] = "Comma separated list of wiki names";
 $lang['rotate_title'] = "Rotate the wiki name (title)";
-$lang['tag_date_format'] = "A php    <a href='http://php.net/manual/en/function.date.php'>date format </a> string.  If present, this date string will be output as your tagline.";
+$lang['tag_date_format'] = "A php <a href='http://php.net/manual/en/function.date.php'>date format </a> string.  If present, this date string will be output as your tagline.";
+$lang['toggle_sidebar'] = "Display a toggle link at the top of the page to hide and show the sidebar";

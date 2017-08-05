@@ -13,5 +13,5 @@ $meta['wiki_names'] = array('string');
 $meta['acl_all'] = array('multichoice','_choices'=>array('NONE','READ','EDIT','CREATE','UPLOAD'));
 $meta['dateorip'] =  array('multichoice','_choices' => array('NEITHER','IP','DAY'));
 $meta['rotatewhich'] =  array('multichoice','_choices' => array('NONE','LOGO','TAG','BOTH'));
-
+$meta['toggle_sidebar']  = array('onoff');
 

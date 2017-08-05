@@ -1,4 +1,10 @@
+var tplmod_aside_width = 0; 
+var tplmod_content_width = 0;
+var tplmod_toggle_open = 0;
 jQuery(document).ready(function() { 
+tplmod_aside_width = parseInt(jQuery("div#dokuwiki__aside").css('width')); 
+tplmod_content_width = parseInt(jQuery("div#dokuwiki__content").css('width'));
+tplmod_toggle_open = tplmod_aside_width + tplmod_content_width;
 if(isNaN(JSINFO['tmplftacl']))  {
     JSINFO['tmplftacl'] = 0;
 }
@@ -67,3 +73,20 @@ if(acl && JSINFO['tmplft_profile']) jQuery("#dokuwiki__usertools  a.profile").hi
 if(acl && JSINFO['tmplft_search'] ) jQuery("form#dw__search").hide();
 
 });
+
+function tplmod_toggle_aside() {
+    var content_width = parseInt(jQuery("div#dokuwiki__content").css('width'));
+    var display;
+    if(content_width == tplmod_toggle_open) {
+        content_width = tplmod_content_width;
+        display = true;
+    }
+    else {
+        content_width = tplmod_toggle_open
+        display = false;
+    }
+    jQuery("div#dokuwiki__aside").toggle(display);
+    jQuery("div#dokuwiki__content").css("width", content_width +'px' );
+}
+
+
