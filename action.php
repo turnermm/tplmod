@@ -59,6 +59,10 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
            }
           else $JSINFO['tmplft_search'] = "";
 
+           /*   debuging  
+                if($JSINFO['tmplftacl'] == '255')  { msg('<pre>' . print_r($JSINFO,1) .'</pre>');}
+           */
+
   }
   
   function logos($ips,$remote_addr, $dateorip) {      
@@ -129,7 +133,7 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
    
    function tags($ips,$remote_addr, $dateorip) {      
          global $JSINFO;         
-         if(!$remote_addr || $dateorip == 'NEITHER') return;
+         
           $opt = $this->getConf('tag_date_format');
           if($opt) {
           $JSINFO['tmplft_tag'] = date($opt); 
