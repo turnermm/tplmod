@@ -1,0 +1,27 @@
+/**
+ * tplmodtoggle tplmodtoggle pagetool icon
+ */
+
+/* tplmodtoggle icon */
+#dokuwiki__pagetools ul li a.tplmodtoggle {
+    background-position: right 0;
+}
+#dokuwiki__pagetools ul li a.tplmodtoggle:before {
+    content: url(sb_toggle.png);
+    margin-top: 0;
+     margin-left: 1px;
+}
+/*
+#dokuwiki__pagetools:hover ul li a.tplmodtoggle,
+#dokuwiki__pagetools ul li a.tplmodtoggle:focus,
+#dokuwiki__pagetools ul li a.tplmodtoggle:active {
+    background-image: url(sb_toggle.png);
+}
+*/
+span.tplmodtoggle {
+  font-size:  9pt;
+  padding-left: 4px;
+  padding-right: 4px;
+  margin-left:6px; margin-right:4px;
+ }
+         

@@ -9,6 +9,7 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
     function register(Doku_Event_Handler $controller) {
         $controller->register_hook(DOKUWIKI_STARTED, 'BEFORE', $this, 'dwstarted');
         $controller->register_hook('TEMPLATE_SITETOOLS_DISPLAY', 'BEFORE', $this, 'action_link', array('site'));       
+     //   $controller->register_hook('TEMPLATE_PAGETOOLS_DISPLAY', 'BEFORE', $this, 'action_link',array('page'));        
     }
 
     function dwstarted(DOKU_EVENT $event, $param) {
@@ -198,11 +199,16 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
             }
             
   function action_link(&$event, $param)  {
-         global $ID, $ACT, $INPUT;
+         global  $ACT,$conf;
+     //     if($conf['template'] == 'monochrome' && $param[0] == 'page') return ;
          $sbar = $this->getConf('toggle_sidebar');
          if($ACT != 'show' || !$sbar) return;     
          $name = $this->getLang('toggle_name');
-         $event->data['items']['tplmod'] = '<li><a href="javascript:tplmod_toggle_aside();void(0);"  rel="nofollow"   title="' .$name. '">'. $name.'</a></li>';
+         if($param[0] == 'page') {
+             $display = "";
+         }
+         else $display = $name;
+         $event->data['items']['tplmod'] = '<li><a href="javascript:tplmod_toggle_aside();void(0);"  class="tplmodtoggle" rel="nofollow"   title="' .$name. '">'. $display.'</a></li>';
     }
             
 }
