@@ -15,6 +15,11 @@ if(isNaN(JSINFO['tmplftacl']))  {
     JSINFO['tmplftacl'] = 0;
 }
 
+if(JSINFO['tmplft_bgcolor']) {
+    jQuery("html").css('background-color',JSINFO['tmplft_bgcolor'] );    
+    jQuery("body").css('background-color',JSINFO['tmplft_bgcolor'] );    
+}
+
 var acl = ((JSINFO['tmplftacl'] >= 0)  && JSINFO['tmplftacl'] <= JSINFO['tmplft_aclgen']) ? true: false;
 
 if(JSINFO['tmplft_logo']) { 
