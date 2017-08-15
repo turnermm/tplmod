@@ -1,0 +1,21 @@
+/**
+ * tplmod toggle icon
+ */
+
+/* tplmodtoggle icon */
+#dokuwiki__pagetools ul li a.tplmodtoggle {
+    background-position: right 0;
+}
+#dokuwiki__pagetools ul li a.tplmodtoggle:before {
+    content: url(sb_toggle.png);
+    margin-top: 0;
+     margin-left: 1px;
+}
+
+span.tplmodtoggle {
+  font-size:  9pt;
+  padding-left: 4px;
+  padding-right: 4px;
+  margin-left:6px; margin-right:4px;
+ }
+         

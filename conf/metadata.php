@@ -14,4 +14,5 @@ $meta['acl_all'] = array('multichoice','_choices'=>array('NONE','READ','EDIT','C
 $meta['dateorip'] =  array('multichoice','_choices' => array('NEITHER','IP','DAY'));
 $meta['rotatewhich'] =  array('multichoice','_choices' => array('NONE','LOGO','TAG','BOTH'));
 $meta['toggle_sidebar']  = array('onoff');
+$meta['background_color']  = array('multicheckbox','_choices' => array('default'));
 

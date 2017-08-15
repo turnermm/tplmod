@@ -5,18 +5,31 @@ if (!defined('DOKU_INC'))
 }
 
 class action_plugin_tplmod extends DokuWiki_Action_Plugin {
-    
+    private $html_bg_color;
     function register(Doku_Event_Handler $controller) {
         $controller->register_hook(DOKUWIKI_STARTED, 'BEFORE', $this, 'dwstarted');
         $controller->register_hook('TEMPLATE_SITETOOLS_DISPLAY', 'BEFORE', $this, 'action_link', array('site'));       
     }
-
+    function __construct() {
+         $ini = parse_ini_file(DOKU_TPLINC . 'style.ini');
+         if(isset($ini['__background_alt__']))
+         {
+         $this->html_bg_color=$ini['__background_alt__'];         
+         }
+    }
     function dwstarted(DOKU_EVENT $event, $param) {
-            global $INPUT, $JSINFO;
-            
+            global $INPUT, $JSINFO, $conf;
+            $JSINFO['tmplft_template'] = $conf['template'];
            $JSINFO['tmplftacl'] = auth_quickaclcheck($JSINFO['id']);
             $acl_levels = array('NONE'=>0,'READ'=>1,'EDIT'=>2,'CREATE'=>4,'UPLOAD'=>8);
             $JSINFO['tmplft_aclgen'] = $acl_levels[$this->getConf('acl_all')];  
+            $background_color = $this->getConf('background_color');
+            $background_color = trim($background_color);
+            if(!empty($background_color)) {
+                if($background_color == 'default') $background_color = $this->html_bg_color;
+                 $JSINFO['tmplft_bgcolor'] = $background_color;   
+            }
+             
             
            $this->tools();
            
@@ -198,11 +211,15 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
             }
             
   function action_link(&$event, $param)  {
-         global $ID, $ACT, $INPUT;
+         global  $ACT,$conf;
          $sbar = $this->getConf('toggle_sidebar');
          if($ACT != 'show' || !$sbar) return;     
          $name = $this->getLang('toggle_name');
-         $event->data['items']['tplmod'] = '<li><a href="javascript:tplmod_toggle_aside();void(0);"  rel="nofollow"   title="' .$name. '">'. $name.'</a></li>';
+         if($param[0] == 'page') {
+             $display = "";
+         }
+         else $display = $name;
+         $event->data['items']['tplmod'] = '<li><a href="javascript:tplmod_toggle_aside();void(0);"  class="tplmodtoggle" rel="nofollow"   title="' .$name. '">'. $display.'</a></li>';
     }
             
 }

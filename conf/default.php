@@ -14,3 +14,4 @@ $conf['wiki_names'] = "";
 $conf['rotate_title'] = 0;
 $conf['tag_date_format']= '';
 $conf['toggle_sidebar'] = 0;
+$conf['background_color'] = "default";
