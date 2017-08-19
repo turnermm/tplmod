@@ -22,6 +22,9 @@ if(JSINFO['tmplft_bgcolor']) {
 
 var acl = ((JSINFO['tmplftacl'] >= 0)  && JSINFO['tmplftacl'] <= JSINFO['tmplft_aclgen']) ? true: false;
 
+if(JSINFO['tmplft_template'] == 'monochrome'  && !JSINFO['tmplft_logo'])   {
+     jQuery("div.pad div.headings img").first().css('padding-right','4px');  
+ }    
 if(JSINFO['tmplft_logo']) { 
  if(JSINFO['tmplft_template']    == 'monochrome')   {
        jQuery("div.pad div.headings img").first().attr("src", function( i, val ) { 
