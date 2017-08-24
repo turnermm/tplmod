@@ -18,6 +18,7 @@ if(isNaN(JSINFO['tmplftacl']))  {
 if(JSINFO['tmplft_bgcolor']) {
     jQuery("html").css('background-color',JSINFO['tmplft_bgcolor'] );    
     jQuery("body").css('background-color',JSINFO['tmplft_bgcolor'] );    
+    jQuery("div#dw__toc").css('background-color',JSINFO['tmplft_bgcolor'] ); 
 }
 
 var acl = ((JSINFO['tmplftacl'] >= 0)  && JSINFO['tmplftacl'] <= JSINFO['tmplft_aclgen']) ? true: false;
