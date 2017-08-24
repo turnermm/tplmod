@@ -15,7 +15,7 @@ if(isNaN(JSINFO['tmplftacl']))  {
     JSINFO['tmplftacl'] = 0;
 }
 
-if(JSINFO['tmplft_bgcolor']) {
+if(JSINFO['tmplft_template'] == 'monochrome' && JSINFO['tmplft_bgcolor']) {
     jQuery("html").css('background-color',JSINFO['tmplft_bgcolor'] );    
     jQuery("body").css('background-color',JSINFO['tmplft_bgcolor'] );    
     jQuery("div#dw__toc").css('background-color',JSINFO['tmplft_bgcolor'] ); 
