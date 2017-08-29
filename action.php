@@ -11,7 +11,7 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
         $controller->register_hook('TEMPLATE_SITETOOLS_DISPLAY', 'BEFORE', $this, 'action_link', array('site'));       
     }
     function __construct() {
-         $ini = parse_ini_file(DOKU_TPLINC . 'style.ini');
+         $ini = parse_ini_file( tpl_incdir() . 'style.ini');
          if(isset($ini['__background_alt__']))
          {
          $this->html_bg_color=$ini['__background_alt__'];         
