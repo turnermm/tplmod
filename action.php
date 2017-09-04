@@ -8,7 +8,8 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
     private $html_bg_color;
     function register(Doku_Event_Handler $controller) {
         $controller->register_hook(DOKUWIKI_STARTED, 'BEFORE', $this, 'dwstarted');
-        $controller->register_hook('TEMPLATE_SITETOOLS_DISPLAY', 'BEFORE', $this, 'action_link', array('site'));       
+        $controller->register_hook('TEMPLATE_SITETOOLS_DISPLAY', 'BEFORE', $this, 'action_link', array('site'));     
+        $controller->register_hook('MENU_ITEMS_ASSEMBLY', 'AFTER', $this, 'addsvgbutton', array());
     }
     function __construct() {
          $ini = parse_ini_file( tpl_incdir() . 'style.ini');
@@ -221,5 +222,12 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
          else $display = $name;
          $event->data['items']['tplmod'] = '<li><a href="javascript:tplmod_toggle_aside();void(0);"  class="tplmodtoggle" rel="nofollow"   title="' .$name. '">'. $display.'</a></li>';
     }
-            
+    
+    public function addsvgbutton(Doku_Event $event) {          
+       $btn = $this->getLang('toggle_name');    
+       if(!$btn) $btn = 'Sidebar toggle';           
+       array_splice($event->data['items'], -1, 0, [new \dokuwiki\plugin\tplmod\MenuItem($btn)]);
+   }    
+    
+           
 }
