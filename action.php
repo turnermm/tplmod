@@ -224,6 +224,10 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
     }
     
     public function addsvgbutton(Doku_Event $event) {          
+        global  $ACT;     
+        if($event->data['view'] != 'site') return;
+        $sbar = $this->getConf('toggle_sidebar');
+        if($ACT != 'show' || !$sbar) return;     
        $btn = $this->getLang('toggle_name');    
        if(!$btn) $btn = 'Sidebar toggle';           
        array_splice($event->data['items'], -1, 0, [new \dokuwiki\plugin\tplmod\MenuItem($btn)]);
