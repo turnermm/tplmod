@@ -7,7 +7,7 @@ if (!defined('DOKU_INC'))
 class action_plugin_tplmod extends DokuWiki_Action_Plugin {
     private $html_bg_color;
     function register(Doku_Event_Handler $controller) {
-        $controller->register_hook(DOKUWIKI_STARTED, 'BEFORE', $this, 'dwstarted');
+        $controller->register_hook('DOKUWIKI_STARTED', 'BEFORE', $this, 'dwstarted');
         $controller->register_hook('TEMPLATE_SITETOOLS_DISPLAY', 'BEFORE', $this, 'action_link', array('site'));     
         $controller->register_hook('MENU_ITEMS_ASSEMBLY', 'AFTER', $this, 'addsvgbutton', array());
     }
