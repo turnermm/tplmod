@@ -19,9 +19,9 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
          }
     }
     function dwstarted(DOKU_EVENT $event, $param) {
-            global $INPUT, $JSINFO, $conf;
+            global $INPUT, $JSINFO, $conf,$ID;
             $JSINFO['tmplft_template'] = $conf['template'];
-           $JSINFO['tmplftacl'] = auth_quickaclcheck($JSINFO['id']);
+           $JSINFO['tmplftacl'] = auth_quickaclcheck( $ID);
             $acl_levels = array('NONE'=>0,'READ'=>1,'EDIT'=>2,'CREATE'=>4,'UPLOAD'=>8);
             $JSINFO['tmplft_aclgen'] = $acl_levels[$this->getConf('acl_all')];  
             $background_color = $this->getConf('background_color');

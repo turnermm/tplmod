@@ -71,6 +71,9 @@ if(acl && JSINFO['tmplft_pagetools']) {
      if(JSINFO['tmplft_ptools_xcl']) {
          var xcludes = new RegExp(JSINFO['tmplft_ptools_xcl'].replace(/,/g,"|"));                  
      }
+      if (typeof xcludes == 'undefined') {
+             xcludes = new RegExp("NONE");      
+       }
      
     jQuery( "#dokuwiki__pagetools a" ).each(function( index ) {  
         var url  = jQuery( this ).attr('href');
