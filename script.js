@@ -90,6 +90,34 @@ if(acl && JSINFO['tmplft_pagetools']) {
     });
 }
 
+jQuery("div.mobileTools option") .each(function(index, opt) { 
+    var opts, regex, xcludes;
+
+    if(opt.value.match(/\w/)) {
+      regex = new RegExp(opt.value); 
+    }      
+    if(JSINFO['tmplft_ptools_xcl']) {
+         xcludes = new RegExp(JSINFO['tmplft_ptools_xcl'].replace(/,/g,"|")); 
+         if (typeof xcludes != 'undefined') {         
+              if(opt.value.match(xcludes)) return;     
+         }
+    }        
+    if(acl && regex) {
+        if(JSINFO['tmplft_pagetools']) {
+           opts = JSINFO['tmplft_pagetools'];
+        }
+        if(JSINFO['tmplft_sitetools']) {        
+             if (typeof opts == 'undefined') {
+                 opts += JSINFO['tmplft_sitetools'];      
+            }
+            else opts =  opts + ',' +  JSINFO['tmplft_sitetools'];
+            }
+          if(opts) {
+              if(opts.match(regex))  jQuery(this).hide();
+          }
+    }
+});
+
 if(acl && JSINFO['tmplft_sitetools']) {
     var regex = new RegExp(JSINFO['tmplft_sitetools'].replace(/,/g,"|"));
     jQuery( "#dokuwiki__sitetools a" ).each(function( index ) {  
