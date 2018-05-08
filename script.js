@@ -91,10 +91,17 @@ if(acl && JSINFO['tmplft_pagetools']) {
 }
 
 jQuery("div.mobileTools option") .each(function(index, opt) { 
-    var opts, regex;
+    var opts, regex, xcludes;
+
     if(opt.value.match(/\w/)) {
       regex = new RegExp(opt.value); 
     }      
+    if(JSINFO['tmplft_ptools_xcl']) {
+         xcludes = new RegExp(JSINFO['tmplft_ptools_xcl'].replace(/,/g,"|")); 
+         if (typeof xcludes != 'undefined') {         
+              if(opt.value.match(xcludes)) return;     
+         }
+    }        
     if(acl && regex) {
         if(JSINFO['tmplft_pagetools']) {
            opts = JSINFO['tmplft_pagetools'];
