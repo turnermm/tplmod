@@ -91,30 +91,19 @@ if(acl && JSINFO['tmplft_pagetools']) {
 }
 
 jQuery("div.mobileTools option") .each(function(index, opt) { 
-    var opts, regex, xcludes;
+    var opts, regex, xcludes, optparent;
+    optparent = jQuery(this).parent("optgroup");
+    if(optparent.attr('label') && optparent.attr('label').match(/User\s+Tools/i)) return;
 
-    if(opt.value.match(/\w/)) {
-      regex = new RegExp(opt.value); 
-    }      
     if(JSINFO['tmplft_ptools_xcl']) {
          xcludes = new RegExp(JSINFO['tmplft_ptools_xcl'].replace(/,/g,"|")); 
-         if (typeof xcludes != 'undefined') {         
+         if (acl && typeof xcludes != 'undefined') {         
               if(opt.value.match(xcludes)) return;     
          }
     }        
+    var regex = new RegExp(JSINFO['tmplft_mobile']);
     if(acl && regex) {
-        if(JSINFO['tmplft_pagetools']) {
-           opts = JSINFO['tmplft_pagetools'];
-        }
-        if(JSINFO['tmplft_sitetools']) {        
-             if (typeof opts == 'undefined') {
-                 opts += JSINFO['tmplft_sitetools'];      
-            }
-            else opts =  opts + ',' +  JSINFO['tmplft_sitetools'];
-            }
-          if(opts) {
-              if(opts.match(regex))  jQuery(this).hide();
-          }
+        if(opt.value.match(regex))  jQuery(this).hide();
     }
 });
 
