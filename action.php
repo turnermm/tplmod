@@ -208,6 +208,13 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
              $xcl = $this->getConf('ptools_xcl');
              $xcl = preg_replace("/\s/","",$xcl);
              if(!empty($xcl)) $JSINFO['tmplft_ptools_xcl'] = $xcl;          
+             
+            $mobile_pt = explode(',',$JSINFO['tmplft_pagetools']); 
+            $mobile_st = explode(',',$JSINFO['tmplft_sitetools']); 
+            $mobile_ar = array_merge($mobile_pt,$mobile_st);
+            $mobile_ar = array_unique($mobile_ar);
+            $JSINFO['tmplft_mobile'] = implode('|',$mobile_ar);
+            
             
             }
             
