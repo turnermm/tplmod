@@ -79,11 +79,11 @@ if(acl && JSINFO['tmplft_pagetools']) {
         var url  = jQuery( this ).attr('href');
      
       var _class = jQuery(this).attr('class');
-      var show = false;
+      //var show = false;
       if(_class && _class.match(/show/)) {     
        return 1;  //  continue: keep show icon
       }  
-   
+
        if(url.match(regex)  && !url.match(xcludes)) {         
               jQuery( this ).hide();
         }      
