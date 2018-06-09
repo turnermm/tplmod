@@ -79,7 +79,7 @@ if(acl && JSINFO['tmplft_pagetools']) {
         var url  = jQuery( this ).attr('href');
      
       var _class = jQuery(this).attr('class');
-      var show = false;
+      
       if(_class && _class.match(/show/)) {     
        return 1;  //  continue: keep show icon
       }  
@@ -117,7 +117,7 @@ if(acl && JSINFO['tmplft_sitetools']) {
     });
 }
 
-if(acl && JSINFO['tmplft_profile']) jQuery("#dokuwiki__usertools  a.profile").hide();
+if(acl && JSINFO['tmplft_profile']) jQuery("div#dokuwiki__usertools li.profile, div#dokuwiki__usertools a[href$='profile']").hide();
 if(acl && JSINFO['tmplft_search'] ) jQuery("form#dw__search").hide();
 
 });
