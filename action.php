@@ -5,7 +5,7 @@ if (!defined('DOKU_INC'))
 }
 
 class action_plugin_tplmod extends DokuWiki_Action_Plugin {
-    private $html_bg_color;
+    private $html_bg_color, $act_blocking;
     function register(Doku_Event_Handler $controller) {
         $controller->register_hook('DOKUWIKI_STARTED', 'BEFORE', $this, 'dwstarted');
         $controller->register_hook('TEMPLATE_SITETOOLS_DISPLAY', 'BEFORE', $this, 'action_link', array('site'));     
@@ -74,6 +74,7 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
                $JSINFO[tmplft_search] = '1';
            }
           else $JSINFO['tmplft_search'] = "";
+		  $this->act_blocking = $this->getConf('blocking');
 
            /*   debuging  
                 if($JSINFO['tmplftacl'] == '255')  { msg('<pre>' . print_r($JSINFO,1) .'</pre>');}
@@ -228,6 +229,12 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
             }
             else $JSINFO['tmplft_actions'] = implode(',',$mobile_ar);
             
+             if($this->getConf('search')) {                
+                    $JSINFO['tmplft_actions'] .= ',search';
+                }
+              if($this->getConf('profile')) {
+                    $JSINFO['tmplft_actions'] .= ',profile';
+                }
             }
             
     function action_link(&$event, $param)  {
@@ -249,6 +256,11 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
    }    
     public function handle_act(Doku_Event $event) {
 	   global $JSINFO;
+       
+	   if(!$this->act_blocking){
+		  return;
+	   }
+       
 	   if(empty($JSINFO['tmplftacl'])) {
 		   $JSINFO['tmplftacl']=0;
 	   }
@@ -266,7 +278,7 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
 		   $event->data = 'show';
 		   return;
 	   }	   
-	   //JSINFO['tmplft_sitetools']$JSINFO['tmplft_pagetools']
+	  
    }	
            
 }
