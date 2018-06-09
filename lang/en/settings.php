@@ -10,9 +10,11 @@ $lang['taglines'] = "Comma separated list of taglines";
 $lang['acl_all'] = 'The acl level at which sitetoools and pagetools removals take effect.';
 $lang['dateorip'] = 'Rotate logos, tag lines, and wiki names  by ip address or days of the week. Select  <code>NEITHER</code> if you do not want rotation.';
 $lang['rotatewhich'] = "If rotating the logo and/or tag line, select which to rotate";
-$lang['ptools_xcl'] = ' If pagetools is set to <code>All</code>, you can retain selected tools by entering  a comma separated list of unique words from their urls in this text box';
+$lang['ptools_xcl'] = ' If pagetools is set to <code>All</code>, you can retain selected tools by entering  a comma separated list of unique words from their urls in this text box.'
+     . ' For the standard Dokuwiki template, use: <code>edit,revisions,backlink,subscribe</code>.'; 
 $lang['wiki_names'] = "Comma separated list of wiki names";
 $lang['rotate_title'] = "Rotate the wiki name (title)";
 $lang['tag_date_format'] = "A php <a href='http://php.net/manual/en/function.date.php'>date format </a> string.  If present, this date string will be output as your tagline.";
 $lang['toggle_sidebar'] = "Display a toggle link at the top of the page to hide and show the sidebar";
 $lang['background_color'] = 'The browser background color, i.e. surrounding the wiki page. See plugin page for possible advantages of setting this option.';
+$lang['blocking'] = 'Prevent attempts to access hidden actions by adding <code> do= </code> parameters to the url.'; 

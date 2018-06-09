@@ -5,11 +5,13 @@ if (!defined('DOKU_INC'))
 }
 
 class action_plugin_tplmod extends DokuWiki_Action_Plugin {
-    private $html_bg_color;
+    private $html_bg_color, $act_blocking;
     function register(Doku_Event_Handler $controller) {
         $controller->register_hook('DOKUWIKI_STARTED', 'BEFORE', $this, 'dwstarted');
         $controller->register_hook('TEMPLATE_SITETOOLS_DISPLAY', 'BEFORE', $this, 'action_link', array('site'));     
         $controller->register_hook('MENU_ITEMS_ASSEMBLY', 'AFTER', $this, 'addsvgbutton', array());
+		$controller->register_hook('ACTION_ACT_PREPROCESS', 'BEFORE', $this, 'handle_act');
+		
     }
     function __construct() {
          $ini = parse_ini_file( tpl_incdir() . 'style.ini');
@@ -21,7 +23,7 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
     function dwstarted(DOKU_EVENT $event, $param) {
             global $INPUT, $JSINFO, $conf,$ID;
             $JSINFO['tmplft_template'] = $conf['template'];
-           $JSINFO['tmplftacl'] = auth_quickaclcheck( $ID);
+            $JSINFO['tmplftacl'] = auth_quickaclcheck( $ID);
             $acl_levels = array('NONE'=>0,'READ'=>1,'EDIT'=>2,'CREATE'=>4,'UPLOAD'=>8);
             $JSINFO['tmplft_aclgen'] = $acl_levels[$this->getConf('acl_all')];  
             $background_color = $this->getConf('background_color');
@@ -34,7 +36,7 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
             
            $this->tools();
            
-           $ips = $this->getConf('ips');
+          $ips = $this->getConf('ips');
           $ips = trim($ips);
           if(!empty($ips)) {
              $remote_addr = $INPUT->server->str('REMOTE_ADDR'); 
@@ -72,6 +74,7 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
                $JSINFO[tmplft_search] = '1';
            }
           else $JSINFO['tmplft_search'] = "";
+		  $this->act_blocking = $this->getConf('blocking');
 
            /*   debuging  
                 if($JSINFO['tmplftacl'] == '255')  { msg('<pre>' . print_r($JSINFO,1) .'</pre>');}
@@ -79,7 +82,7 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
 
   }
   
-  function logos($ips,$remote_addr, $dateorip) {      
+   function logos($ips,$remote_addr, $dateorip) {      
          global $JSINFO;         
       
          if($dateorip == 'NEITHER') return;
@@ -117,7 +120,7 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
            }
        }
 
-     function wiki_names($ips,$remote_addr, $dateorip) {      
+    function wiki_names($ips,$remote_addr, $dateorip) {      
          global $JSINFO;         
           if($dateorip == 'NEITHER') return;
          
@@ -145,7 +148,7 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
        }
    }  
    
-   function tags($ips,$remote_addr, $dateorip) {      
+    function tags($ips,$remote_addr, $dateorip) {      
          global $JSINFO;         
          
           $opt = $this->getConf('tag_date_format');
@@ -180,7 +183,7 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
        }
    }     
   
-  function tools() {
+    function tools() {
              global $JSINFO, $INPUT;
 
             $sitetools = $this->getConf('sitetools') ;
@@ -196,8 +199,9 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
             if(!empty($pagetools)) {
                 $pat = array('/Old/','/\s/ ', '/Backlinks/');
                 $repl = array("","","backlink");     
-                $pagetools=strtolower(preg_replace($pat, $repl,$pagetools));       
+                $pagetools=strtolower(preg_replace($pat, $repl,$pagetools));
                 if(strpos($pagetools,'all') !== false) {
+                   $pagetools_conf = $pagetools;
                    $pagetools  = '\w+';               
                 }                
                 $JSINFO['tmplft_pagetools'] = $pagetools;         
@@ -205,8 +209,11 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
             else $JSINFO['tmplft_pagetools'] = "";
             
              $JSINFO['tmplft_ptools_xcl'] =  "";
-             $xcl = $this->getConf('ptools_xcl');
-             $xcl = preg_replace("/\s/","",$xcl);
+			 if(strpos($pagetools,'\w+') !== false) {
+                 $xcl = $this->getConf('ptools_xcl');
+                 $xcl = preg_replace("/\s/","",$xcl);
+			 }
+			 else $xcl = 'NONE';
              if(!empty($xcl)) $JSINFO['tmplft_ptools_xcl'] = $xcl;          
              
             $mobile_pt = explode(',',$JSINFO['tmplft_pagetools']); 
@@ -214,11 +221,23 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
             $mobile_ar = array_merge($mobile_pt,$mobile_st);
             $mobile_ar = array_unique($mobile_ar);
             $JSINFO['tmplft_mobile'] = implode('|',$mobile_ar);
+            if(isset($pagetools_conf)) {
+                $pt_conf = explode(',',$pagetools_conf);
+                $actions_ar = array_merge($pt_conf,$mobile_st);
+                $actions_ar = array_unique($actions_ar);
+                $JSINFO['tmplft_actions'] = implode(',',$actions_ar);
+            }
+            else $JSINFO['tmplft_actions'] = implode(',',$mobile_ar);
             
-            
+             if($this->getConf('search')) {                
+                    $JSINFO['tmplft_actions'] .= ',search';
+                }
+              if($this->getConf('profile')) {
+                    $JSINFO['tmplft_actions'] .= ',profile';
+                }
             }
             
-  function action_link(&$event, $param)  {
+    function action_link(&$event, $param)  {
          global  $ACT,$conf;
          $sbar = $this->getConf('toggle_sidebar');
          if($ACT != 'show' || !$sbar) return;     
@@ -231,10 +250,35 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
         if($event->data['view'] != 'site') return;
         $sbar = $this->getConf('toggle_sidebar');
         if($ACT != 'show' || !$sbar) return;     
-       $btn = $this->getLang('toggle_name');    
-       if(!$btn) $btn = 'Sidebar toggle';           
-       array_splice($event->data['items'], -1, 0, [new \dokuwiki\plugin\tplmod\MenuItem($btn)]);
+        $btn = $this->getLang('toggle_name');    
+        if(!$btn) $btn = 'Sidebar toggle';           
+        array_splice($event->data['items'], -1, 0, [new \dokuwiki\plugin\tplmod\MenuItem($btn)]);
    }    
-    
+    public function handle_act(Doku_Event $event) {
+	   global $JSINFO;
+       
+	   if(!$this->act_blocking){
+		  return;
+	   }
+       
+	   if(empty($JSINFO['tmplftacl'])) {
+		   $JSINFO['tmplftacl']=0;
+	   }
+	   $acl = (($JSINFO['tmplftacl'] >= 0)  && $JSINFO['tmplftacl'] <= $JSINFO['tmplft_aclgen']) ? true: false;
+       if(!$acl) return;
+       $act = act_clean($event->data); 
+	  
+	   if(isset($JSINFO['tmplft_ptools_xcl']) && !empty($JSINFO['tmplft_ptools_xcl'])) {
+		   if(strpos($JSINFO['tmplft_ptools_xcl'],$act) !== false) {
+			   $event->data = 'show';
+			   return;
+		   }
+	   }
+	   if(strpos($JSINFO['tmplft_actions'],$act) !== false) {
+		   $event->data = 'show';
+		   return;
+	   }	   
+	  
+   }	
            
 }
