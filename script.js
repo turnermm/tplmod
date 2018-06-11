@@ -11,6 +11,22 @@ tplmod_toggle_open = tplmod_aside_width + tplmod_content_width;
 tplmod_content_padding.t =jQuery("div.wrapper").css('padding-top');
 tplmod_content_padding.b =jQuery("div.wrapper").css('padding-bottom');
 
+//jQuery("li.profile,  a[href$='profile']").hide();
+//jQuery("ul.dropdown-menu.tools").show();
+//<i class="fa fa-fw fa-wrench"></i>
+//jQuery( "i.fa.fa-fw.fa-wrench" ).click(function() {    
+ jQuery("ul.dropdown-menu.tools li").each (function( index ) {
+  var _html =  jQuery( this ).html();
+  if(_html.match(/revisions/i))  {
+     // alert(_html);
+      jQuery(this). html("");
+  }
+});
+ 
+//});
+//alert(jQuery( "a.dropdown-toggle" ).html());
+//alert(jQuery("ul.dropdown-menu").html());
+
 if(isNaN(JSINFO['tmplftacl']))  {
     JSINFO['tmplftacl'] = 0;
 }
@@ -116,6 +132,7 @@ if(acl && JSINFO['tmplft_sitetools']) {
         }      
     });
 }
+
 
 if(acl && JSINFO['tmplft_profile']) jQuery("div#dokuwiki__usertools li.profile, div#dokuwiki__usertools a[href$='profile']").hide();
 if(acl && JSINFO['tmplft_search'] ) jQuery("form#dw__search").hide();
