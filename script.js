@@ -5,8 +5,15 @@ var tplmod_content_padding = {'b':0,'t':0};
 jQuery(document).ready(function() { 
 
  // get default values 
-tplmod_aside_width = parseInt(jQuery("aside#dokuwiki__aside").css('width')); 
-tplmod_content_width = parseInt(jQuery("article#dokuwiki__content").css('width'));
+
+if(JSINFO['tmplft_template'] == 'bootstrap3') {
+	tplmod_aside_width = parseInt(jQuery("aside#dokuwiki__aside").css('width')); 
+	tplmod_content_width = parseInt(jQuery("article#dokuwiki__content").css('width'));
+}
+else {
+	tplmod_aside_width = parseInt(jQuery("div#dokuwiki__aside").css('width')); 
+	tplmod_content_width = parseInt(jQuery("div#dokuwiki__content").css('width'));	
+}
 tplmod_toggle_open = tplmod_aside_width + tplmod_content_width;
 tplmod_content_padding.t =jQuery("div.wrapper").css('padding-top');
 tplmod_content_padding.b =jQuery("div.wrapper").css('padding-bottom');
@@ -17,8 +24,7 @@ tplmod_content_padding.b =jQuery("div.wrapper").css('padding-bottom');
 //jQuery( "i.fa.fa-fw.fa-wrench" ).click(function() {    
  jQuery("ul.dropdown-menu.tools li").each (function( index ) {
   var _html =  jQuery( this ).html();
-  if(_html.match(/revisions/i))  {
-     // alert(_html);
+  if(_html.match(/revisions/i))  {     
       jQuery(this). html("");
   }
 });
@@ -140,11 +146,17 @@ if(acl && JSINFO['tmplft_search'] ) jQuery("form#dw__search").hide();
 });
 
 function tplmod_toggle_aside() {
-	//tplmod_aside_width = parseInt(jQuery("aside#dokuwiki__aside").css('width')); 
-var content_width = parseInt(jQuery("article#dokuwiki__content").css('width'));
-   // var content_width = parseInt(jQuery("div#dokuwiki__content").css('width'));
-   // var content_height = parseInt(jQuery("div#dokuwiki__content").css('height'));
-    var display;
+	var display,content_width;
+   ;
+   	if(JSINFO['tmplft_template'] == 'bootstrap3') {	
+        content_width = parseInt(jQuery("article#dokuwiki__content").css('width'));
+	}
+	else {
+	    content_width = parseInt(jQuery("div#dokuwiki__content").css('width'))	
+	}
+ 
+ 
+    
     if(content_width == tplmod_toggle_open) {
         content_width = tplmod_content_width;
         if(JSINFO['tmplft_template']    == 'monochrome')   {
@@ -164,9 +176,14 @@ var content_width = parseInt(jQuery("article#dokuwiki__content").css('width'));
         }
         display = false;
     }
-	
-    jQuery("aside#dokuwiki__aside").toggle(display);
-    jQuery("article#dokuwiki__content").css("width", content_width +'px' );
+	if(JSINFO['tmplft_template'] == 'bootstrap3') {
+		jQuery("aside#dokuwiki__aside").toggle(display);
+		jQuery("article#dokuwiki__content").css("width", content_width +'px' );
+	}
+    else {
+	    jQuery("div#dokuwiki__aside").toggle(display);
+        jQuery("div#dokuwiki__content").css("width", content_width +'px' );
+    }  
 }
 
 
