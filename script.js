@@ -5,8 +5,8 @@ var tplmod_content_padding = {'b':0,'t':0};
 jQuery(document).ready(function() { 
 
  // get default values 
-tplmod_aside_width = parseInt(jQuery("div#dokuwiki__aside").css('width')); 
-tplmod_content_width = parseInt(jQuery("div#dokuwiki__content").css('width'));
+tplmod_aside_width = parseInt(jQuery("aside#dokuwiki__aside").css('width')); 
+tplmod_content_width = parseInt(jQuery("article#dokuwiki__content").css('width'));
 tplmod_toggle_open = tplmod_aside_width + tplmod_content_width;
 tplmod_content_padding.t =jQuery("div.wrapper").css('padding-top');
 tplmod_content_padding.b =jQuery("div.wrapper").css('padding-bottom');
@@ -140,8 +140,10 @@ if(acl && JSINFO['tmplft_search'] ) jQuery("form#dw__search").hide();
 });
 
 function tplmod_toggle_aside() {
-    var content_width = parseInt(jQuery("div#dokuwiki__content").css('width'));
-    var content_height = parseInt(jQuery("div#dokuwiki__content").css('height'));
+	//tplmod_aside_width = parseInt(jQuery("aside#dokuwiki__aside").css('width')); 
+var content_width = parseInt(jQuery("article#dokuwiki__content").css('width'));
+   // var content_width = parseInt(jQuery("div#dokuwiki__content").css('width'));
+   // var content_height = parseInt(jQuery("div#dokuwiki__content").css('height'));
     var display;
     if(content_width == tplmod_toggle_open) {
         content_width = tplmod_content_width;
@@ -162,8 +164,9 @@ function tplmod_toggle_aside() {
         }
         display = false;
     }
-    jQuery("div#dokuwiki__aside").toggle(display);
-    jQuery("div#dokuwiki__content").css("width", content_width +'px' );
+	
+    jQuery("aside#dokuwiki__aside").toggle(display);
+    jQuery("article#dokuwiki__content").css("width", content_width +'px' );
 }
 
 
