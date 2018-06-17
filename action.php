@@ -267,7 +267,7 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
 	   $acl = (($JSINFO['tmplftacl'] >= 0)  && $JSINFO['tmplftacl'] <= $JSINFO['tmplft_aclgen']) ? true: false;
        if(!$acl) return;
        $act = act_clean($event->data); 
-	  
+       if($act == 'logout' || $act == 'login') return;
 	   if(isset($JSINFO['tmplft_ptools_xcl']) && !empty($JSINFO['tmplft_ptools_xcl'])) {        
 		   if(strpos($JSINFO['tmplft_ptools_xcl'],$act) !== false) {			  
 			   return 1;
