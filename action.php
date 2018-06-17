@@ -225,6 +225,7 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
                 $pt_conf = explode(',',$pagetools_conf);
                 if(isset($JSINFO['tmplft_ptools_xcl'] )) {
                 $pt_conf = array_diff($pt_conf, explode(',',$JSINFO['tmplft_ptools_xcl'] ));
+                 }                    
                 $actions_ar = array_merge($pt_conf,$mobile_st);
                 $actions_ar = array_unique($actions_ar);
                 $JSINFO['tmplft_actions'] = implode(',',$actions_ar);
