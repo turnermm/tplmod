@@ -1,6 +1,6 @@
 <?php
 $meta['sitetools']  = array('multicheckbox','_choices' => array('Recent Changes','Media Manager','Sitemap'));
-$meta['pagetools']  = array('multicheckbox','_choices' => array('Edit','Old Revisions','Backlinks', 'Subscribe','All'));
+$meta['pagetools']  = array('multicheckbox','_choices' => array('Edit/View Source','Old Revisions','Backlinks', 'Subscribe','All'));
 $meta['ptools_xcl'] = array('string');
 $meta['profile'] = array('onoff');
 $meta['search'] = array('onoff');
