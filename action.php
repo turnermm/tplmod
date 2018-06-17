@@ -223,17 +223,15 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
             $JSINFO['tmplft_mobile'] = implode('|',$mobile_ar);
             if(isset($pagetools_conf)) {  // $pagetools is set to \w+, i.e. all,
                 $pt_conf = explode(',',$pagetools_conf);
-             //   msg("page_tools_conf: " . print_r($pt_conf,1));
                 if(isset($JSINFO['tmplft_ptools_xcl'] )) {
-                    $pt_conf = array_diff($pt_conf, explode(',',$JSINFO['tmplft_ptools_xcl'] ));
-                   // msg("pt_conf:" . print_r($pt_conf,1) ."<br/>xcl:" .$JSINFO['tmplft_ptools_xcl'] );
-                }
+                $pt_conf = array_diff($pt_conf, explode(',',$JSINFO['tmplft_ptools_xcl'] ));
                 $actions_ar = array_merge($pt_conf,$mobile_st);
                 $actions_ar = array_unique($actions_ar);
                 $JSINFO['tmplft_actions'] = implode(',',$actions_ar);
+                $JSINFO['tmplft_mobile'] = implode('|',$actions_ar);
             }
             else $JSINFO['tmplft_actions'] = implode(',',$mobile_ar);
-          //  msg("actions: " . $JSINFO['tmplft_actions'] ."<br />pagetools_conf: " .  $pagetools_conf);
+         
              if($this->getConf('search')) {                
                     $JSINFO['tmplft_actions'] .= ',search';
                 }
