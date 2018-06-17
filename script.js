@@ -26,9 +26,10 @@ tplmod_content_padding.b =jQuery("div.wrapper").css('padding-bottom');
   }
 });
  
+ /*
  if(JSINFO['tmplft_profile']){
     jQuery("li a.action.profile").parent().html("");
-    }
+ }*/
 
 if(isNaN(JSINFO['tmplftacl']))  {
     JSINFO['tmplftacl'] = 0;
@@ -136,7 +137,14 @@ if(acl && JSINFO['tmplft_sitetools']) {
 }
 
 
-if(acl && JSINFO['tmplft_profile']) jQuery("div#dokuwiki__usertools li.profile, div#dokuwiki__usertools a[href$='profile']").hide();
+if(acl && JSINFO['tmplft_profile']) { 
+   	if(JSINFO['tmplft_template'] == 'bootstrap3') {	
+	     jQuery("li a.action.profile").parent().html("");
+	}
+    else {
+		jQuery("div#dokuwiki__usertools li.profile, div#dokuwiki__usertools a[href$='profile']").hide();
+	}
+}
 if(acl && JSINFO['tmplft_search'] ) jQuery("form#dw__search").hide();
 
 });
