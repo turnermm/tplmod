@@ -268,17 +268,16 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
        if(!$acl) return;
        $act = act_clean($event->data); 
 	  
-	   if(isset($JSINFO['tmplft_ptools_xcl']) && !empty($JSINFO['tmplft_ptools_xcl'])) {
-		   if(strpos($JSINFO['tmplft_ptools_xcl'],$act) !== false) {
-			   $event->data = 'show';
-			   return;
+	   if(isset($JSINFO['tmplft_ptools_xcl']) && !empty($JSINFO['tmplft_ptools_xcl'])) {        
+		   if(strpos($JSINFO['tmplft_ptools_xcl'],$act) !== false) {			  
+			   return 1;
 		   }
 	   }
-	   if(strpos($JSINFO['tmplft_actions'],$act) !== false) {
-		   $event->data = 'show';
-		   return;
+	   if(strpos($JSINFO['tmplft_actions'],$act) !== false) {		 
+		   return 1;
 	   }	   
-	  
+	    $event->data = 'show';
+        return 1;
    }	
            
 }
