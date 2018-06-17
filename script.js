@@ -22,14 +22,13 @@ tplmod_content_padding.b =jQuery("div.wrapper").css('padding-bottom');
  jQuery("ul.dropdown-menu.tools li").each (function( index ) {
   var _html =  jQuery( this ).html();
   if(_html.match(/revisions/i))  {     
-      jQuery(this). html("");
+  //  jQuery(this). html("");
   }
 });
-jQuery("nav#dw__pagetools li a").each (function( index ) {
-   var url  = jQuery( this ).attr('href');
-    if( url.match(/revisions/i))  {  
+ 
+ if(JSINFO['tmplft_profile']){
+    jQuery("li a.action.profile").parent().html("");
     }
-});
 
 if(isNaN(JSINFO['tmplftacl']))  {
     JSINFO['tmplftacl'] = 0;
@@ -94,10 +93,9 @@ if(acl && JSINFO['tmplft_pagetools']) {
       if (typeof xcludes == 'undefined') {
              xcludes = new RegExp("NONE");      
        }
-     
-    jQuery( "#dokuwiki__pagetools a" ).each(function( index ) {  
+     /* nav#dw__pagetools => bootstrap3 */
+    jQuery( "#dokuwiki__pagetools a, nav#dw__pagetools li a" ).each(function( index ) {  
         var url  = jQuery( this ).attr('href');
-     
       var _class = jQuery(this).attr('class');
       
       if(_class && _class.match(/show/)) {     
