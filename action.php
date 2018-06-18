@@ -277,7 +277,8 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
 			   return 1;
 		   }
 		   }
-	   if(strpos($JSINFO['tmplft_actions'],$act) !== false) { // if allowed action, allow		 
+    
+	   if(strpos($JSINFO['tmplft_actions'],$act) === false) { // if allowed action, allow		 
 		   return 1;
 	   }
 		   $event->data = 'show';
