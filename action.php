@@ -269,11 +269,12 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
        $act = act_clean($event->data); 
        if($act == 'logout' || $act == 'login') return;
 	   if(isset($JSINFO['tmplft_ptools_xcl']) && !empty($JSINFO['tmplft_ptools_xcl'])) {        
-		   if(strpos($JSINFO['tmplft_ptools_xcl'],$act) !== false) {			  
+		   if(strpos($JSINFO['tmplft_ptools_xcl'],$act) !== false) {	 // if excluded allow
 			   return 1;
 		   }
 	   }
-	   if(strpos($JSINFO['tmplft_actions'],$act) !== false) {		 
+    
+	   if(strpos($JSINFO['tmplft_actions'],$act) === false) { // if allowed action, allow		 
 		   return 1;
 	   }	   
 	    $event->data = 'show';
