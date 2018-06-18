@@ -30,7 +30,7 @@ if(JSINFO['tmplft_template'] == 'monochrome' && JSINFO['tmplft_bgcolor']) {
     jQuery("div#dw__toc").css('background-color',JSINFO['tmplft_bgcolor'] ); 
 }
 
-var acl = ((JSINFO['tmplftacl'] >= 0)  && JSINFO['tmplftacl'] <= JSINFO['tmplft_aclgen']) ? true: false;
+var acl = ((JSINFO['tmplftacl'] >= 0)  && (JSINFO['tmplftacl'] <= JSINFO['tmplft_aclgen'])) ? true: false;
 
 if(JSINFO['tmplft_template'] == 'monochrome'  && !JSINFO['tmplft_logo'])   {
      jQuery("div.pad div.headings img").first().css('padding-right','4px');  
@@ -76,6 +76,18 @@ jQuery("p.claim").html(function(i,val) {
 });
 }
 
+if(acl && JSINFO['tmplft_template'] == 'bootstrap3') {    var regex;
+       if(JSINFO['tmplft_mobile'])
+          regex = new RegExp(JSINFO['tmplft_mobile']);   
+      else regex = '/NONE/';
+     jQuery("ul.dropdown-menu.tools li").each (function( index ) {
+      var  _html =  jQuery( this ).html();
+       if( _html.match(regex))  {     
+           jQuery(this). html("");
+       }
+    });
+}
+
 if(acl && JSINFO['tmplft_pagetools']) {
      var regex = new RegExp(JSINFO['tmplft_pagetools'].replace(/,/g,"|"));
      if(JSINFO['tmplft_ptools_xcl']) {
@@ -84,7 +96,7 @@ if(acl && JSINFO['tmplft_pagetools']) {
       if (typeof xcludes == 'undefined') {
              xcludes = new RegExp("NONE");      
        }
-
+     /* nav#dw__pagetools => bootstrap3 */
     jQuery( "#dokuwiki__pagetools a, nav#dw__pagetools li a" ).each(function( index ) {  
         var url  = jQuery( this ).attr('href');
       var _class = jQuery(this).attr('class');
@@ -98,14 +110,6 @@ if(acl && JSINFO['tmplft_pagetools']) {
         }      
     });
 }
-if(acl && JSINFO['tmplft_template'] == 'bootstrap3') {
-	var mobile_regex = new RegExp(JSINFO['tmplft_mobile']);
-	 jQuery("ul.dropdown-menu.tools li>a").each (function( index ) {
-	  var _html =  jQuery( this ).attr('href');   
-	   if(mobile_regex.test(_html)){
-		jQuery(this).parent().html("");
-	   }   
-	 });
 
 jQuery("div.mobileTools option") .each(function(index, opt) { 
     var opts, regex, xcludes, optparent;
