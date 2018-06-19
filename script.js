@@ -65,13 +65,16 @@ if(JSINFO['tmplft_title'] ) {
     });
 }
 if(JSINFO['tmplft_tag'] ) {
-jQuery("p.claim").html(function(i,val) {
+jQuery("p.claim,span#dw__tagline").html(function(i,val) {
        if(val.match(/<.*?>/)) {
           val = val.replace(/^\s*(<.*?>)(.*?)(<\/)/,function(m,m1,m2,m3) {
               return m1 + JSINFO['tmplft_tag']  +  m3;
          } );
      }
      else val = JSINFO['tmplft_tag'] ;
+     if(JSINFO['tmplft_template'] == 'bootstrap3') {
+         jQuery("span#dw__tagline").css("padding-top", "2px");
+     }
     return val;
 });
 }
