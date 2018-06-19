@@ -59,13 +59,10 @@ jQuery("div.headings.group h1 img,div.navbar-header img").attr("src", function( 
 }
 }
 
-if(JSINFO['tmplft_title'] ) {
-     jQuery("div.headings.group h1 span").html(function(index,val) {  
-         return JSINFO['tmplft_title'] ; 
-    });
-}
+
 if(JSINFO['tmplft_tag'] ) {
 jQuery("p.claim,span#dw__tagline").html(function(i,val) {
+  
        if(val.match(/<.*?>/)) {
           val = val.replace(/^\s*(<.*?>)(.*?)(<\/)/,function(m,m1,m2,m3) {
               return m1 + JSINFO['tmplft_tag']  +  m3;
@@ -78,6 +75,18 @@ jQuery("p.claim,span#dw__tagline").html(function(i,val) {
     return val;
 });
 }
+
+if(JSINFO['tmplft_title'] ) {   
+     jQuery("div.headings.group h1 span").html(function(index,val) {     
+         return  JSINFO['tmplft_title'] ; 
+    });
+    
+     jQuery("span#dw__title").html(function(index,val) {   
+         var elems = val.split('<span');      
+         return  JSINFO['tmplft_title']  + '<span' +elems[1] ;
+    });
+}
+
 
 if(acl && JSINFO['tmplft_template'] == 'bootstrap3') {    var regex;
        if(JSINFO['tmplft_mobile'])
