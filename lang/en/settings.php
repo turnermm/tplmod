@@ -11,7 +11,7 @@ $lang['acl_all'] = 'The ACL level required for access to the sitetoools and page
 $lang['dateorip'] = 'Rotate logos, tag lines, and wiki names  by ip address or days of the week. Select  <code>NEITHER</code> if you do not want rotation.';
 $lang['rotatewhich'] = "If rotating the logo and/or tag line, select which to rotate";
 $lang['ptools_xcl'] = ' If pagetools is set to <code>All</code>, you can retain selected tools by entering  a comma separated list of unique words from their urls in this text box.'
-     . ' For the standard Dokuwiki template, use: <code>edit,revisions,backlink,subscribe</code>.'; 
+     . ' The Dokuwiki template and most others use these words: <code>edit,revisions,backlink,subscribe</code>. By default this option protects the top and login icons.'; 
 $lang['wiki_names'] = "Comma separated list of wiki names";
 $lang['rotate_title'] = "Rotate the wiki name (title)";
 $lang['tag_date_format'] = "A php <a href='http://php.net/manual/en/function.date.php'>date format </a> string.  If present, this date string will be output as your tagline.";
