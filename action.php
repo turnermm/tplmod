@@ -201,7 +201,7 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
                 $repl = array("","","backlink");     
                 $pagetools=strtolower(preg_replace($pat, $repl,$pagetools));
                 if(strpos($pagetools,'all') !== false) {
-                   $pagetools_conf = $pagetools;
+                   $pagetools_conf = 'edit,revisions,backlink,subscribe';
                    $pagetools  = '\w+';               
                 }                
                 $JSINFO['tmplft_pagetools'] = $pagetools;         
@@ -221,14 +221,18 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
             $mobile_ar = array_merge($mobile_pt,$mobile_st);
             $mobile_ar = array_unique($mobile_ar);
             $JSINFO['tmplft_mobile'] = implode('|',$mobile_ar);
-            if(isset($pagetools_conf)) {
+            if(isset($pagetools_conf)) {  // $pagetools is set to \w+, i.e. all,
                 $pt_conf = explode(',',$pagetools_conf);
+                if(isset($JSINFO['tmplft_ptools_xcl'] )) {
+                    $pt_conf = array_diff($pt_conf, explode(',',$JSINFO['tmplft_ptools_xcl'] ));
+                 }                    
                 $actions_ar = array_merge($pt_conf,$mobile_st);
                 $actions_ar = array_unique($actions_ar);
                 $JSINFO['tmplft_actions'] = implode(',',$actions_ar);
+                $JSINFO['tmplft_mobile'] = implode('|',$actions_ar);
             }
             else $JSINFO['tmplft_actions'] = implode(',',$mobile_ar);
-            
+         
              if($this->getConf('search')) {                
                     $JSINFO['tmplft_actions'] .= ',search';
                 }

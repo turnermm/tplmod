@@ -5,11 +5,20 @@ var tplmod_content_padding = {'b':0,'t':0};
 jQuery(document).ready(function() { 
 
  // get default values 
-tplmod_aside_width = parseInt(jQuery("div#dokuwiki__aside").css('width')); 
-tplmod_content_width = parseInt(jQuery("div#dokuwiki__content").css('width'));
+
+if(JSINFO['tmplft_template'] == 'bootstrap3') {
+	tplmod_aside_width = parseInt(jQuery("aside#dokuwiki__aside").css('width')); 
+	tplmod_content_width = parseInt(jQuery("article#dokuwiki__content").css('width'));
+}
+else {
+	tplmod_aside_width = parseInt(jQuery("div#dokuwiki__aside").css('width')); 
+	tplmod_content_width = parseInt(jQuery("div#dokuwiki__content").css('width'));	
+}
 tplmod_toggle_open = tplmod_aside_width + tplmod_content_width;
 tplmod_content_padding.t =jQuery("div.wrapper").css('padding-top');
 tplmod_content_padding.b =jQuery("div.wrapper").css('padding-bottom');
+
+
 
 if(isNaN(JSINFO['tmplftacl']))  {
     JSINFO['tmplftacl'] = 0;
@@ -21,7 +30,7 @@ if(JSINFO['tmplft_template'] == 'monochrome' && JSINFO['tmplft_bgcolor']) {
     jQuery("div#dw__toc").css('background-color',JSINFO['tmplft_bgcolor'] ); 
 }
 
-var acl = ((JSINFO['tmplftacl'] >= 0)  && JSINFO['tmplftacl'] <= JSINFO['tmplft_aclgen']) ? true: false;
+var acl = ((JSINFO['tmplftacl'] >= 0)  && (JSINFO['tmplftacl'] <= JSINFO['tmplft_aclgen'])) ? true: false;
 
 if(JSINFO['tmplft_template'] == 'monochrome'  && !JSINFO['tmplft_logo'])   {
      jQuery("div.pad div.headings img").first().css('padding-right','4px');  
@@ -39,7 +48,7 @@ if(JSINFO['tmplft_logo']) {
     });      
  }
  else {
-jQuery("div.headings.group h1 img").attr("src", function( i, val ) { 
+jQuery("div.headings.group h1 img,div.navbar-header img").attr("src", function( i, val ) { 
       if(JSINFO['tmplft_logo_width']) { 
   this.width = JSINFO['tmplft_logo_width'] ;
       }
@@ -50,22 +59,47 @@ jQuery("div.headings.group h1 img").attr("src", function( i, val ) {
 }
 }
 
-if(JSINFO['tmplft_title'] ) {
-     jQuery("div.headings.group h1 span").html(function(index,val) {  
-         return JSINFO['tmplft_title'] ; 
-    });
-}
+
 if(JSINFO['tmplft_tag'] ) {
-jQuery("p.claim").html(function(i,val) {
+jQuery("p.claim,span#dw__tagline").html(function(i,val) {
+  
        if(val.match(/<.*?>/)) {
           val = val.replace(/^\s*(<.*?>)(.*?)(<\/)/,function(m,m1,m2,m3) {
               return m1 + JSINFO['tmplft_tag']  +  m3;
          } );
      }
      else val = JSINFO['tmplft_tag'] ;
+     if(JSINFO['tmplft_template'] == 'bootstrap3') {
+         jQuery("span#dw__tagline").css("padding-top", "2px");
+     }
     return val;
 });
 }
+
+if(JSINFO['tmplft_title'] ) {   
+     jQuery("div.headings.group h1 span").html(function(index,val) {     
+         return  JSINFO['tmplft_title'] ; 
+    });
+    
+     jQuery("span#dw__title").html(function(index,val) {   
+         var elems = val.split('<span');      
+         return  JSINFO['tmplft_title']  + '<span' +elems[1] ;
+    });
+}
+
+
+if(acl && JSINFO['tmplft_template'] == 'bootstrap3') {    var regex;
+       if(JSINFO['tmplft_mobile'])
+          regex = new RegExp(JSINFO['tmplft_mobile']);   
+      else regex = '/NONE/';
+     jQuery("ul.dropdown-menu.tools li").each (function( index ) {
+      var  _html =  jQuery( this ).html();
+       if( _html.match(regex))  {     
+           jQuery(this). html("");
+       }
+    });
+}
+
 if(acl && JSINFO['tmplft_pagetools']) {
      var regex = new RegExp(JSINFO['tmplft_pagetools'].replace(/,/g,"|"));
      if(JSINFO['tmplft_ptools_xcl']) {
@@ -74,10 +108,9 @@ if(acl && JSINFO['tmplft_pagetools']) {
       if (typeof xcludes == 'undefined') {
              xcludes = new RegExp("NONE");      
        }
-     
-    jQuery( "#dokuwiki__pagetools a" ).each(function( index ) {  
+     /* nav#dw__pagetools => bootstrap3 */
+    jQuery( "#dokuwiki__pagetools a, nav#dw__pagetools li a" ).each(function( index ) {  
         var url  = jQuery( this ).attr('href');
-     
       var _class = jQuery(this).attr('class');
       
       if(_class && _class.match(/show/)) {     
@@ -117,15 +150,28 @@ if(acl && JSINFO['tmplft_sitetools']) {
     });
 }
 
-if(acl && JSINFO['tmplft_profile']) jQuery("div#dokuwiki__usertools li.profile, div#dokuwiki__usertools a[href$='profile']").hide();
+
+if(JSINFO['tmplft_profile']) { 
+   	if(JSINFO['tmplft_template'] == 'bootstrap3') {	
+	     jQuery("li a.action.profile").parent().html("");
+	}
+    else {
+		jQuery("div#dokuwiki__usertools li.profile, div#dokuwiki__usertools a[href$='profile']").hide();
+	}
+}
 if(acl && JSINFO['tmplft_search'] ) jQuery("form#dw__search").hide();
 
 });
 
 function tplmod_toggle_aside() {
-    var content_width = parseInt(jQuery("div#dokuwiki__content").css('width'));
-    var content_height = parseInt(jQuery("div#dokuwiki__content").css('height'));
-    var display;
+	var display,content_width;
+ 
+   	if(JSINFO['tmplft_template'] == 'bootstrap3') {	
+        content_width = parseInt(jQuery("article#dokuwiki__content").css('width'));
+	}
+	else {
+	    content_width = parseInt(jQuery("div#dokuwiki__content").css('width'))	
+	}
     if(content_width == tplmod_toggle_open) {
         content_width = tplmod_content_width;
         if(JSINFO['tmplft_template']    == 'monochrome')   {
@@ -145,8 +191,14 @@ function tplmod_toggle_aside() {
         }
         display = false;
     }
-    jQuery("div#dokuwiki__aside").toggle(display);
-    jQuery("div#dokuwiki__content").css("width", content_width +'px' );
+	if(JSINFO['tmplft_template'] == 'bootstrap3') {
+		jQuery("aside#dokuwiki__aside").toggle(display);
+		jQuery("article#dokuwiki__content").css("width", content_width +'px' );
+	}
+    else {
+	    jQuery("div#dokuwiki__aside").toggle(display);
+        jQuery("div#dokuwiki__content").css("width", content_width +'px' );
+    }  
 }
 
 
