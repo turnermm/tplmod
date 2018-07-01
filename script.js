@@ -30,7 +30,7 @@ if(JSINFO['tmplft_template'] == 'monochrome' && JSINFO['tmplft_bgcolor']) {
     jQuery("div#dw__toc").css('background-color',JSINFO['tmplft_bgcolor'] ); 
 }
 
-var acl = ((JSINFO['tmplftacl'] >= 0)  && (JSINFO['tmplftacl'] <= JSINFO['tmplft_aclgen'])) ? true: false;
+var acl = ((JSINFO['tmplftacl'] >= 0)  && (JSINFO['tmplftacl'] < JSINFO['tmplft_aclgen'])) ? true: false;
 
 if(JSINFO['tmplft_template'] == 'monochrome'  && !JSINFO['tmplft_logo'])   {
      jQuery("div.pad div.headings img").first().css('padding-right','4px');  
