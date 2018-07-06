@@ -65,7 +65,7 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
            
            $profile = $this->getConf('profile');  
            if(!empty($profile)) {
-               $JSINFO[tmplft_profile] = '1';
+               $JSINFO['tmplft_profile'] = '1';
            }
            else $JSINFO['tmplft_profile'] = "";
            
