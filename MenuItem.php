@@ -7,7 +7,6 @@ use dokuwiki\Menu\Item\AbstractItem;
 /**
  * Class MenuItem
  *
- * Implements the PDF export button for DokuWiki's menu system
  *
  * @package dokuwiki\plugin\tplmod
  */
