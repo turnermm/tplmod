@@ -239,6 +239,9 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
               if($this->getConf('profile')) {
                     $JSINFO['tmplft_actions'] .= ',profile';
                 }
+               if(preg_match('/revisions|recent/',$JSINFO['tmplft_actions'])) {
+                   $JSINFO['tmplft_actions'] .= ',diff';
+               }
             }
             
     function action_link(&$event, $param)  {
