@@ -21,10 +21,10 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
          }
     }
     function dwstarted(DOKU_EVENT $event, $param) {
-            global $INPUT, $JSINFO, $conf,$ID;
+            global $INPUT, $JSINFO, $conf,$ID,$USERINFO;  
             $JSINFO['tmplft_template'] = $conf['template'];
             $JSINFO['tmplftacl'] = auth_quickaclcheck( $ID);
-            $acl_levels = array('NONE'=>0,'READ'=>1,'EDIT'=>2,'CREATE'=>4,'UPLOAD'=>8);
+            $acl_levels = array('NONE'=>0,'READ'=>1,'EDIT'=>2,'CREATE'=>4,'UPLOAD'=>8,'DELETE'=>16);
             $JSINFO['tmplft_aclgen'] = $acl_levels[$this->getConf('acl_all')];  
             $background_color = $this->getConf('background_color');
             $background_color = trim($background_color);
@@ -64,11 +64,21 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
            }
            
            $profile = $this->getConf('profile');  
-           if(!empty($profile)) {
+           $restricted_group = $this->getConf('restricted_group');  
+           $restricted = false;
+           if(isset($USERINFO)) {
+               $groups = $USERINFO['grps'];
+                if(in_array($restricted_group,$groups)) {
+                    $restricted = true;
+                }
+           }
+  
+           if( $restricted && !empty($profile)) {
                $JSINFO['tmplft_profile'] = '1';
            }
-           else $JSINFO['tmplft_profile'] = "";
-           
+           else {
+               $JSINFO['tmplft_profile'] = "";
+           }           
           $search = $this->getConf('search');  
            if(!empty($search)) {
                $JSINFO[tmplft_search] = '1';

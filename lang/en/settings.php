@@ -5,6 +5,7 @@ $lang['sitetools'] = '<b>Site Tools</b><br />Remove the selected site tools. In 
 $lang['pagetools'] = '<b>Page Tools</b><br />Remove the selected page tools. In the Dokuwiki template these are located along the right-hand side of the template. ' .
 ' You can remove non-standard tools, using the input box:  enter them as a comma separated list of unique words from their query strings or urls.';
 $lang['profile'] = 'Remove User Profile link';
+$lang['restricted_group'] = 'Name of group which is restricted from accessing the User Profile dialog. If no group is assigned, all users will have the User Profile link removed.';
 $lang['search'] = 'Remove Search box';
 $lang['taglines'] = "Comma separated list of taglines";
 $lang['acl_all'] = 'The ACL level required for access to the sitetoools and pagetools. Users with lesser ACL levels will be barred from access to these tools';
