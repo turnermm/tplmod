@@ -66,7 +66,7 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
            $profile = $this->getConf('profile');  
            $restricted_group = $this->getConf('restricted_group');  
            $restricted = false;
-           if(isset($USERINFO)) {
+           if(isset($USERINFO) && isset($restricted_group)) {               
                $groups = $USERINFO['grps'];
                 if(in_array($restricted_group,$groups)) {
                     $restricted = true;
