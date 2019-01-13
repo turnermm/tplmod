@@ -11,15 +11,38 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
         $controller->register_hook('TEMPLATE_SITETOOLS_DISPLAY', 'BEFORE', $this, 'action_link', array('site'));     
         $controller->register_hook('MENU_ITEMS_ASSEMBLY', 'AFTER', $this, 'addsvgbutton', array());
 		$controller->register_hook('ACTION_ACT_PREPROCESS', 'BEFORE', $this, 'handle_act');
-		
+        $controller->register_hook('HTML_UPDATEPROFILEFORM_OUTPUT', 'BEFORE', $this, 'handle_profile_form');            
+  		
     }
     function __construct() {
+		// global $conf;
+		 //$conf['lang']='de';
+   
          $ini = parse_ini_file( tpl_incdir() . 'style.ini');
          if(isset($ini['__background_alt__']))
          {
          $this->html_bg_color=$ini['__background_alt__'];         
          }
     }
+	
+    function handle_profile_form(Doku_Event $event, $param) {
+		//msg($this->getLang('uprofile_title'));
+		// $x =array('_dir' => DOKU_INC.'inc/lang/');
+		 //array('dirchoice','_dir' => DOKU_INC.'lib/tpl/','_pattern' => '/^[\w-]+$/');
+    //     $x=$this->get_isos(DOKU_INC.'inc/lang/','/^[\w-]+$/');
+//		 msg(print_r($x,1));
+
+		 $client =   $_SERVER['REMOTE_USER'];
+		 $pos = $event->data->findElementByAttribute('type', 'reset');
+            $_form = '</div></form><br /><form name="tplmodform" action="#"><div class="no">';
+            $_form.= '<fieldset ><legend>' . 'Select your UI language' .'</legend>';            
+            $_form.= '<br /><label><span><b>User Name: </b></span> ';
+            $_form.= '<input type="textbox" name="tplmod_client" disabled value="' .  $client .'"/></label>';
+            $_form.= '<br /><br /><input type="button" value="Save" class="button" ' . "onclick='tplmod_setui(this.form.cked_selector.value,this.form.cked_client.value,this.form.cked_selector);' />&nbsp;";
+            $_form.= '<input type="reset" value="Reset" class="button" />';
+            $_form.= '</fieldset>';           
+            $event->data->insertElement($pos+2, $_form);
+    }		
     function dwstarted(DOKU_EVENT $event, $param) {
             global $INPUT, $JSINFO, $conf,$ID,$USERINFO;  
             $JSINFO['tmplft_template'] = $conf['template'];

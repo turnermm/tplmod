@@ -17,3 +17,4 @@ $conf['toggle_sidebar'] = 0;
 $conf['background_color'] = "";
 $conf['blocking']= 1;
 $conf['restricted_group'] = '';
+$conf['deflang'] = 'English EN';
