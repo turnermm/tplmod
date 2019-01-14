@@ -12,6 +12,7 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
         $controller->register_hook('MENU_ITEMS_ASSEMBLY', 'AFTER', $this, 'addsvgbutton', array());
 		$controller->register_hook('ACTION_ACT_PREPROCESS', 'BEFORE', $this, 'handle_act');
         $controller->register_hook('HTML_UPDATEPROFILEFORM_OUTPUT', 'BEFORE', $this, 'handle_profile_form');            
+         $controller->register_hook('AJAX_CALL_UNKNOWN', 'BEFORE', $this,'_ajax_call');             
   		
     }
     function __construct() {
@@ -24,29 +25,36 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
          $this->html_bg_color=$ini['__background_alt__'];         
          }
     }
+
+	function _ajax_call(Doku_Event $event, $param) { 
+	    if ($event->data != 'tplmod_ui_lang' ) {
+			return;
+		}	
+        $event->stopPropagation();
+        $event->preventDefault();
+        echo "done";
+	}
 	
     function handle_profile_form(Doku_Event $event, $param) {
-        $language = explode( ',',$this->getConf('deflang'));
-
-
-		  $client =   $_SERVER['REMOTE_USER'];
+         $language = explode( ',',$this->getConf('deflang'));
+		 $client =   $_SERVER['REMOTE_USER'];
          $pos = $event->data->findElementByAttribute('type', 'reset');
          $_form = '</div></form><br /><form name="tplmodform" action="#"><div class="no">';
          $_form.= '<fieldset ><legend>' . $this->getLang('uprofile_title') .'</legend>';
             
-         $_form.= ' ';
+       //  $_form.= '<br />';
          foreach($language as $ln) {
-                $checked = "";
-                list($name,$val) = explode(" ",$ln);        
+               $checked = "";
+               list($name,$val) = explode(" ",$ln);        
                $_form .= '<label><span>' .$name .'</span> ';
                $_form .='<input type = "radio" value = "' . trim($val) . '" name= "tplmod_selector" ' . $checked .'></label>&nbsp;';
-                }
-            $_form.= '<br /><label><span><b>User Name: </b></span> ';
-            $_form.= '<input type="textbox" name="tplmod_client" disabled value="' .  $client .'"/></label>';
-            $_form.= '<br /><br /><input type="button" value="Save" class="button" ' . "onclick='tplmod_setui_lang(this.form.tplmod_selector.value,this.form.tplmod_client.value,this.form.tplmod_selector);' />&nbsp;";
-            $_form.= '<input type="reset" value="Reset" class="button" />';
-            $_form.= '</fieldset>';           
-            $event->data->insertElement($pos+2, $_form);
+         }
+         $_form.= '<br /><label><span><b>User Name: </b></span> ';
+         $_form.= '<input type="textbox" name="tplmod_client" disabled value="' .  $client .'"/></label>';
+         $_form.= '<br /><br /><input type="button" value="Save" class="button" ' . "onclick='tplmod_setui_lang(this.form.tplmod_selector.value,this.form.tplmod_client.value,this.form.tplmod_selector);' />&nbsp;";
+         $_form.= '<input type="reset" value="Reset" class="button" />';
+         $_form.= '</fieldset>';           
+         $event->data->insertElement($pos+2, $_form);
     }		
     function dwstarted(DOKU_EVENT $event, $param) {
             global $INPUT, $JSINFO, $conf,$ID,$USERINFO;  

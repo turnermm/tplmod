@@ -203,27 +203,24 @@ function tplmod_toggle_aside() {
  function tplmod_setui_lang(m,client,dw_val_obj) {
        var which = {'Y': 'Dokuwiki', 'N': 'CKEditor'};
 
-       if (typeof m === "undefined") {  // Safari
+  /*    if (typeof m === "undefined") {  // Safari
                if(dw_val_obj[0].checked) {
                    m= dw_val_obj[0].value;
                }
               else if(dw_val_obj[1].checked) {
                            m = dw_val_obj[1].value;
               }
-       }
-       alert(m + "  "+ client + " "+ dw_val_obj)
-       return;
-        var params = "dw_val=" +  m;   params += '&call=tplmod_selector';    params += "&dwp_client=" + client;
+       }*/
+        var params = "tplmod_val=" +  m;   params += '&call=tplmod_ui_lang';
+		params += "&tplmod_client=" + client;
         jQuery.post( DOKU_BASE + 'lib/exe/ajax.php', params,
-                function (data) {  
+                function (data) {                 
                     if(data == 'done') { 
-                        if(!m)
-                             alert(LANG.plugins.ckgedit.dwp_not_sel); 
-                          else 
-                             alert(LANG.plugins.ckgedit.dwp_updated + which[m]); 
+                                  alert(LANG.plugins.tplmod.ui_updated );  //+ which[m]); 
                     }
                       else  {
-                          alert(LANG.plugins.ckgedit.dwp_save_err + data); 
+                         // alert(2);
+                          alert(LANG.plugins.tplmod.ui_save_err + data); 
                       }   
                     },
                 'html'
