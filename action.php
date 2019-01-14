@@ -5,7 +5,7 @@ if (!defined('DOKU_INC'))
 }
 
 class action_plugin_tplmod extends DokuWiki_Action_Plugin {
-    private $html_bg_color, $act_blocking;
+    private $html_bg_color, $act_blocking, $ui_priority_metafn;
     function register(Doku_Event_Handler $controller) {
         $controller->register_hook('DOKUWIKI_STARTED', 'BEFORE', $this, 'dwstarted');
         $controller->register_hook('TEMPLATE_SITETOOLS_DISPLAY', 'BEFORE', $this, 'action_link', array('site'));     
@@ -16,9 +16,11 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
   		
     }
     function __construct() {
-		 global $conf;
-	//	 $conf['lang']='de';
-// //  init_lang('de');
+	    $this->ui_priority_metafn = metaFN(':tplmod:ui_lang', '.ser');
+        if(!file_exists($this->ui_priority_metafn)) {
+           io_saveFile($this->ui_priority_metafn, serialize(array()));       
+        }
+  
          $ini = parse_ini_file( tpl_incdir() . 'style.ini');
          if(isset($ini['__background_alt__']))
          {
@@ -30,24 +32,43 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
 	    if ($event->data != 'tplmod_ui_lang' ) {
 			return;
 		}	
+        global $INPUT;
         $event->stopPropagation();
-        $event->preventDefault();
-        echo "done";
+        $event->preventDefault();              
+        $ar = unserialize(file_get_contents($this->ui_priority_metafn));
+        $ln = $INPUT->str('tplmod_val');
+        $client = $INPUT->str('tplmod_client');
+        $ar[$client] = $ln;
+         $retv = file_put_contents($this->ui_priority_metafn,serialize($ar));  
+         if($retv === false) {
+             echo $this->ui_priority_metafn;            
+         }
+         else echo "done";
+         return;             
 	}
 	
     function handle_profile_form(Doku_Event $event, $param) {
          $language = explode( ',',$this->getConf('deflang'));
 		 $client =   $_SERVER['REMOTE_USER'];
+         $ar = unserialize(file_get_contents($this->ui_priority_metafn));   
+         if(isset($ar[$client])) {
+             $lan = $ar[$client];
+         }    
          $pos = $event->data->findElementByAttribute('type', 'reset');
          $_form = '</div></form><br /><form name="tplmodform" action="#"><div class="no">';
          $_form.= '<fieldset ><legend>' . $this->getLang('uprofile_title') .'</legend>';
             
-       //  $_form.= '<br />';
+ 
          foreach($language as $ln) {
                $checked = "";
                list($name,$val) = explode(" ",$ln);        
                $_form .= '<label><span>' .$name .'</span> ';
-               $_form .='<input type = "radio" value = "' . trim($val) . '" name= "tplmod_selector" ' . $checked .'></label>&nbsp;';
+               $val = strtolower(trim($val));
+               if($lan == $val) {
+                   $checked = 'checked';
+               }
+           //    msg($checked . " -> " . $lan . "->" . $val);
+               $_form .='<input type = "radio" value = "' . $val . '" name= "tplmod_selector" ' . $checked .'></label>&nbsp;';
          }
          $_form.= '<br /><label><span><b>User Name: </b></span> ';
          $_form.= '<input type="textbox" name="tplmod_client" disabled value="' .  $client .'"/></label>';
@@ -56,10 +77,20 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
          $_form.= '</fieldset>';           
          $event->data->insertElement($pos+2, $_form);
     }		
+    
     function dwstarted(DOKU_EVENT $event, $param) {
             global $INPUT, $JSINFO, $conf,$ID,$USERINFO;  
-         //   init_lang('de');	
-	   // 	 $conf['lang']='de';
+          
+            if(file_exists($this->ui_priority_metafn)) {
+               $client = $_SERVER['REMOTE_USER'];       
+               $ar = unserialize(file_get_contents($this->ui_priority_metafn));              
+               if(isset($ar[$client])) {
+                  $ln = $ar[$client];              
+                  init_lang($ln);	
+	        	  $conf['ln']='de';                   
+               }
+            }            
+
             $JSINFO['tmplft_template'] = $conf['template'];
             $JSINFO['tmplftacl'] = auth_quickaclcheck( $ID);
             $acl_levels = array('NONE'=>0,'READ'=>1,'EDIT'=>2,'CREATE'=>4,'UPLOAD'=>8,'DELETE'=>16);
