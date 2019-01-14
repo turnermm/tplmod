@@ -12,7 +12,7 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
         $controller->register_hook('MENU_ITEMS_ASSEMBLY', 'AFTER', $this, 'addsvgbutton', array());
 		$controller->register_hook('ACTION_ACT_PREPROCESS', 'BEFORE', $this, 'handle_act');
         $controller->register_hook('HTML_UPDATEPROFILEFORM_OUTPUT', 'BEFORE', $this, 'handle_profile_form');            
-         $controller->register_hook('AJAX_CALL_UNKNOWN', 'BEFORE', $this,'_ajax_call');             
+        $controller->register_hook('AJAX_CALL_UNKNOWN', 'BEFORE', $this,'_ajax_call');             
   		
     }
     function __construct() {
@@ -48,7 +48,12 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
 	}
 	
     function handle_profile_form(Doku_Event $event, $param) {
-         $language = explode( ',',$this->getConf('deflang'));
+		 $language = trim($this->getConf('deflang'));
+		 if(!isset($language)|| empty($language)) {
+			 return;
+		 }		 
+         $language = explode( ',',$language);
+
 		 $client =   $_SERVER['REMOTE_USER'];
          $ar = unserialize(file_get_contents($this->ui_priority_metafn));   
          if(isset($ar[$client])) {
@@ -61,7 +66,7 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
  
          foreach($language as $ln) {
                $checked = "";
-               list($name,$val) = explode(" ",$ln);        
+               list($name,$val) = preg_split("/\s+/",$ln);        
                $_form .= '<label><span>' .$name .'</span> ';
                $val = strtolower(trim($val));
                if($lan == $val) {
@@ -87,7 +92,7 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
                if(isset($ar[$client])) {
                   $ln = $ar[$client];              
                   init_lang($ln);	
-	        	  $conf['ln']='de';                   
+	        	  $conf['lang']= $ln;                   
                }
             }            
 

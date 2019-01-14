@@ -201,10 +201,7 @@ function tplmod_toggle_aside() {
     }  
 }
  function tplmod_setui_lang(m,client,dw_val_obj) {
-       var which = {'Y': 'Dokuwiki', 'N': 'CKEditor'};
-
-
-      
+       
         var params = "tplmod_val=" +  m;   params += '&call=tplmod_ui_lang';
 		params += "&tplmod_client=" + client;
         jQuery.post( DOKU_BASE + 'lib/exe/ajax.php', params,
@@ -212,8 +209,7 @@ function tplmod_toggle_aside() {
                     if(data == 'done') { 
                          alert(LANG.plugins.tplmod.ui_updated + m); 
                     }
-                      else  {
-                    
+                      else  {                    
                          alert(LANG.plugins.tplmod.ui_save_err + data); 
                       }   
                     },
