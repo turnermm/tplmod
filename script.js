@@ -200,5 +200,21 @@ function tplmod_toggle_aside() {
         jQuery("div#dokuwiki__content").css("width", content_width +'px' );
     }  
 }
+ function tplmod_setui_lang(m,client,dw_val_obj) {
+       
+        var params = "tplmod_val=" +  m;   params += '&call=tplmod_ui_lang';
+		params += "&tplmod_client=" + client;
+        jQuery.post( DOKU_BASE + 'lib/exe/ajax.php', params,
+                function (data) {   
+                    if(data == 'done') { 
+                         alert(LANG.plugins.tplmod.ui_updated + m); 
+                    }
+                      else  {                    
+                         alert(LANG.plugins.tplmod.ui_save_err + data); 
+                      }   
+                    },
+                'html'
+            );     
+ }
 
 

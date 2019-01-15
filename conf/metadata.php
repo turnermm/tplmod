@@ -17,5 +17,7 @@ $meta['rotatewhich'] =  array('multichoice','_choices' => array('NONE','LOGO','T
 $meta['toggle_sidebar']  = array('onoff');
 $meta['background_color']  = array('multicheckbox','_choices' => array('default'));
 $meta['blocking']= array('onoff');
-
-
+$meta['deflang'] = array('multicheckbox','_choices'=>array('Albanian SQ','Arabic AR','Armenian HY','Basque EU','Bulgarian BG','Chinese ZH','Croatian HR',
+'Czech CS','Danish DA','Dutch NL','English EN','Esperanto EO','Estonian ET','Finnish FI','French FR','German DE','Greek EL','Greenlandic KL','Hebrew IW','Hindi HI',
+'Hungarian HU','Icelandic IS','Italian IT','Japanese JA','Korean KO','Latvian LV','Lithuanian LT','Macedonian MK','Norwegian NO','Persian FA','Polish PL',
+'Portuguese PT','Romanian  RO','Russian RU','Serbian SR','Slovak SK','Spanish ES','Swedish SV','Taiwanese zh-tw','Turkish TR','Ukrainian UK'));

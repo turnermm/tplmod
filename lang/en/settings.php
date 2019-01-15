@@ -19,3 +19,5 @@ $lang['tag_date_format'] = "A php <a href='http://php.net/manual/en/function.dat
 $lang['toggle_sidebar'] = "Display a toggle link at the top of the page to hide and show the sidebar";
 $lang['background_color'] = 'The browser background color, i.e. surrounding the wiki page. See plugin page for possible advantages of setting this option.';
 $lang['blocking'] = 'Prevent attempts to access hidden actions by adding <code> do=&lt;action&gt; </code> parameters to the url.'; 
+$lang['deflang'] = 'User Interface Languages.  Select the languages from which your users will be selecting a UI Language in the User Profile dialog. If any do not appear '
+    .  'in the listing, they can be entered, as a comma-separated list, into the text box in this form: "Language ISO", where Language is the language name and ISO is the ISO code.';
