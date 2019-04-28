@@ -60,10 +60,10 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
              $lan = $ar[$client];
          }    
          $pos = $event->data->findElementByAttribute('type', 'reset');
-         $_form = '</div></form><br /><form name="tplmodform" action="#"><div class="no">';
+         $_form =  "\n" . '</div></form><br /><form name="tplmodform" action="#"><div class="no">';
          $_form.= '<fieldset ><legend>' . $this->getLang('uprofile_title') .'</legend>';
             
- 
+         $num_langs = 0;
          foreach($language as $ln) {
                $checked = "";
                list($name,$val) = preg_split("/\s+/",$ln);        
@@ -72,8 +72,15 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
                if($lan == $val) {
                    $checked = 'checked';
                }
-           //    msg($checked . " -> " . $lan . "->" . $val);
-               $_form .='<input type = "radio" value = "' . $val . '" name= "tplmod_selector" ' . $checked .'></label>&nbsp;';
+
+               $_form .='<input type = "radio" value = "' . $val . '" name= "tplmod_selector" ' . $checked .'>&nbsp;&nbsp;&nbsp;</label>';			
+			    if( $num_langs > 0 &&  $num_langs % 3 == 0) {
+				    $_form .= "<br />\n";
+				 }		
+				 if($num_langs == 0) {
+					  $num_langs++;
+				 }
+			    $num_langs++;
          }
          $_form.= '<br /><label><span><b>User Name: </b></span> ';
          $_form.= '<input type="textbox" name="tplmod_client" disabled value="' .  $client .'"/></label>';
