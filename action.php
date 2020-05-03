@@ -162,7 +162,7 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
            }           
           $search = $this->getConf('search');  
            if(!empty($search)) {
-               $JSINFO[tmplft_search] = '1';
+               $JSINFO['tmplft_search'] = '1';
            }
           else $JSINFO['tmplft_search'] = "";
 		  $this->act_blocking = $this->getConf('blocking');
