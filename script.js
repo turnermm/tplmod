@@ -24,6 +24,11 @@ if(isNaN(JSINFO['tmplftacl']))  {
     JSINFO['tmplftacl'] = 0;
 }
 
+tplmod_toggle_aside(JSINFO['tmplft_sbxcl']);
+//alert(JSINFO['tmplft_sbxcl']);
+
+
+
 if(JSINFO['tmplft_template'] == 'monochrome' && JSINFO['tmplft_bgcolor']) {
     jQuery("html").css('background-color',JSINFO['tmplft_bgcolor'] );    
     jQuery("body").css('background-color',JSINFO['tmplft_bgcolor'] );    
@@ -163,9 +168,9 @@ if(acl && JSINFO['tmplft_search'] ) jQuery("form#dw__search").hide();
 
 });
 
-function tplmod_toggle_aside() {
+function tplmod_toggle_aside(status) {
 	var display,content_width;
- 
+    if(!status) return;
    	if(JSINFO['tmplft_template'] == 'bootstrap3') {	
         content_width = parseInt(jQuery("article#dokuwiki__content").css('width'));
 	}

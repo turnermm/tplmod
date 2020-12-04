@@ -18,3 +18,4 @@ $conf['background_color'] = "";
 $conf['blocking']= 1;
 $conf['restricted_group'] = '';
 $conf['deflang'] = '';
+$conf['xcl_sidebar'] = "";
