@@ -16,7 +16,7 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
   		
     }
     function __construct() {
-        $this->$xcl_sbar = false;
+        $this->xcl_sbar = false;
 	    $this->ui_priority_metafn = metaFN(':tplmod:ui_lang', '.ser');
         if(!file_exists($this->ui_priority_metafn)) {
            io_saveFile($this->ui_priority_metafn, serialize(array()));       
@@ -348,7 +348,7 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
             
     function action_link(&$event, $param)  {
          global  $ACT,$conf;
-         if($this->$xcl_sbar) return;
+         if($this->xcl_sbar) return;
          $sbar = $this->getConf('toggle_sidebar');
          if($ACT != 'show' || !$sbar) return;     
          $name = $this->getLang('toggle_name');
@@ -357,7 +357,7 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
     
     public function addsvgbutton(Doku_Event $event) {          
         global  $ACT;     
-        if($this->$xcl_sbar) return; 
+        if($this->xcl_sbar) return; 
         
         if($event->data['view'] != 'site') return;
         $sbar = $this->getConf('toggle_sidebar');

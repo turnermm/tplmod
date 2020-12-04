@@ -25,8 +25,6 @@ if(isNaN(JSINFO['tmplftacl']))  {
 }
 
 tplmod_toggle_aside(JSINFO['tmplft_sbxcl']);
-//alert(JSINFO['tmplft_sbxcl']);
-
 
 
 if(JSINFO['tmplft_template'] == 'monochrome' && JSINFO['tmplft_bgcolor']) {
