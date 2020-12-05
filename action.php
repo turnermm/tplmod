@@ -5,7 +5,7 @@ if (!defined('DOKU_INC'))
 }
 
 class action_plugin_tplmod extends DokuWiki_Action_Plugin {
-    private $html_bg_color, $act_blocking, $ui_priority_metafn;
+    private $html_bg_color, $act_blocking, $ui_priority_metafn, $xcl_sbar;
     function register(Doku_Event_Handler $controller) {
         $controller->register_hook('DOKUWIKI_STARTED', 'BEFORE', $this, 'dwstarted');
         $controller->register_hook('TEMPLATE_SITETOOLS_DISPLAY', 'BEFORE', $this, 'action_link', array('site'));     
@@ -114,9 +114,16 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
                  $JSINFO['tmplft_bgcolor'] = $background_color;   
             }
              
+            /* Suppress sidebar */            
+            $xcludes = $this->getConf('xcl_sidebar');           
+            $xcludes = preg_replace("/\s+/","",$xcludes);
+            $xcludes = trim($xcludes,',');            
+            $xcludes = str_replace(',','|',$xcludes);                      
+            if(preg_match('/('.$xcludes.')/',$ID)) {
+                $conf['sidebar'] = 0;              
+            }
             
            $this->tools();
-           
           $ips = $this->getConf('ips');
           $ips = trim($ips);
           if(!empty($ips)) {
@@ -337,6 +344,7 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
             
     function action_link(&$event, $param)  {
          global  $ACT,$conf;
+         if(!$conf['sidebar']) return;         
          $sbar = $this->getConf('toggle_sidebar');
          if($ACT != 'show' || !$sbar) return;     
          $name = $this->getLang('toggle_name');
@@ -344,7 +352,8 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
     }
     
     public function addsvgbutton(Doku_Event $event) {          
-        global  $ACT;     
+        global  $ACT,$conf;
+        if(!$conf['sidebar']) return;        
         if($event->data['view'] != 'site') return;
         $sbar = $this->getConf('toggle_sidebar');
         if($ACT != 'show' || !$sbar) return;     

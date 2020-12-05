@@ -21,3 +21,4 @@ $meta['deflang'] = array('multicheckbox','_choices'=>array('Albanian SQ','Arabic
 'Czech CS','Danish DA','Dutch NL','English EN','Esperanto EO','Estonian ET','Finnish FI','French FR','German DE','Greek EL','Greenlandic KL','Hebrew IW','Hindi HI',
 'Hungarian HU','Icelandic IS','Italian IT','Japanese JA','Korean KO','Latvian LV','Lithuanian LT','Macedonian MK','Norwegian NO','Persian FA','Polish PL',
 'Portuguese PT','Romanian  RO','Russian RU','Serbian SR','Slovak SK','Spanish ES','Swedish SV','Taiwanese zh-tw','Turkish TR','Ukrainian UK'));
+$meta['xcl_sidebar'] = array('string');

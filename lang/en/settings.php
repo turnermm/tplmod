@@ -21,3 +21,5 @@ $lang['background_color'] = 'The browser background color, i.e. surrounding the 
 $lang['blocking'] = 'Prevent attempts to access hidden actions by adding <code> do=&lt;action&gt; </code> parameters to the url.'; 
 $lang['deflang'] = 'User Interface Languages.  Select the languages from which your users will be selecting a UI Language in the User Profile dialog. If any do not appear '
     .  'in the listing, they can be entered, as a comma-separated list, into the text box in this form: "Language ISO", where Language is the language name and ISO is the ISO code.';
+$lang['xcl_sidebar'] = "Comma separated list of pages and/or namespaces where sidebar should be suppressed.  Pages should be in <code>namespace:pagename</code> " .
+      "format. Namespaces as <code>namespace:*</code> ";
