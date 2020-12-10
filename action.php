@@ -116,11 +116,15 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
              
             /* Suppress sidebar */            
             $xcludes = $this->getConf('xcl_sidebar');           
+            if($xcludes) {         
+               // msg($xcludes);            
             $xcludes = preg_replace("/\s+/","",$xcludes);
             $xcludes = trim($xcludes,',');            
             $xcludes = str_replace(',','|',$xcludes);                      
-            if(preg_match('/('.$xcludes.')/',$ID)) {
+                if(preg_match('/('.$xcludes.')/',$ID,$matches)) {
                 $conf['sidebar'] = 0;              
+                    //msg(print_r($matches,1));   
+                }
             }
             
            $this->tools();
