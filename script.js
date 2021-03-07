@@ -24,7 +24,9 @@ if(isNaN(JSINFO['tmplftacl']))  {
     JSINFO['tmplftacl'] = 0;
 }
 
-
+if(JSINFO['tmplftacl'] < 255) {
+    jQuery("#dokuwiki__usertools > ul > li.admin").hide();
+}
 if(JSINFO['tmplft_template'] == 'monochrome' && JSINFO['tmplft_bgcolor']) {
     jQuery("html").css('background-color',JSINFO['tmplft_bgcolor'] );    
     jQuery("body").css('background-color',JSINFO['tmplft_bgcolor'] );    
@@ -141,10 +143,10 @@ jQuery("div.mobileTools option") .each(function(index, opt) {
         if(opt.value.match(regex))  jQuery(this).hide();
     }
 });
-
+//sprintdoc: #dokuwiki__usertools > ul > li.admin 
 if(acl && JSINFO['tmplft_sitetools']) {
     var regex = new RegExp(JSINFO['tmplft_sitetools'].replace(/,/g,"|"));
-    jQuery( "#dokuwiki__sitetools a,#sidebar-site-tools a").each(function( index ) {  
+    jQuery( "#dokuwiki__sitetools a,#sidebar-site-tools a,#dokuwiki__usertools > ul > li a").each(function( index ) {  
         var url  = jQuery( this ).attr('href');       
         if(url.match(regex)) {
             jQuery( this ).hide();
