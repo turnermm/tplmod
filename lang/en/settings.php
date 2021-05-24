@@ -2,9 +2,7 @@
 $lang['logos'] = 'Comma separated list of image names for home page logo: names only, not paths';
 $lang['ips'] = 'Comma separated list of IPs for rotation by IP; rotations follow sequence of IPs';
 $lang['sitetools'] = '<b>Site Tools</b><br />Remove the selected site tools. In the Dokuwiki template Site Tools are located at the top of the template.';
-$lang['pagetools'] = '<b>Page Tools</b><br />Remove the selected page tools. In the Dokuwiki template these are located along the right-hand side of the template. ' .
-' You can remove non-standard tools, using the input box:  enter them as a comma separated list of unique words from their query strings or urls. ' .
-'Keeping <code>revert</code> prevents attackers from restoring old page versions.';
+$lang['pagetools'] = '<b>Page Tools</b><br />Remove the selected page tools. In the Dokuwiki template these are located along the right-hand side of the template.  You can remove non-standard tools, using the input box:  enter them as a comma separated list of unique words from their query strings or urls.';
 $lang['profile'] = 'Remove User Profile link';
 $lang['restricted_group'] = 'Name of group which is restricted from accessing the User Profile dialog. If no group is assigned and the <code>profile</code> option is true, all users will have the User Profile link removed.';
 $lang['search'] = 'Remove Search box';
@@ -17,7 +15,7 @@ $lang['ptools_xcl'] = ' If pagetools is set to <code>All</code>, you can retain 
 $lang['wiki_names'] = "Comma separated list of wiki names";
 $lang['rotate_title'] = "Rotate the wiki name (title)";
 $lang['tag_date_format'] = "A php <a href='http://php.net/manual/en/function.date.php'>date format </a> string.  If present, this date string will be output as your tagline.";
-$lang['toggle_sidebar'] = "Display a toggle link among the site tools to hide and show the sidebar";
+$lang['toggle_sidebar'] = "Display a toggle to hide and show the sidebar";
 $lang['background_color'] = 'The browser background color, i.e. surrounding the wiki page. See plugin page for possible advantages of setting this option.';
 $lang['blocking'] = 'Prevent attempts to access hidden actions by adding <code> do=&lt;action&gt; </code> parameters to the url.'; 
 $lang['deflang'] = 'User Interface Languages.  Select the languages from which your users will be selecting a UI Language in the User Profile dialog. If any do not appear '
