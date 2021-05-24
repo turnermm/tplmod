@@ -2,7 +2,8 @@
 $lang['logos'] = 'Comma separated list of image names for home page logo: names only, not paths';
 $lang['ips'] = 'Comma separated list of IPs for rotation by IP; rotations follow sequence of IPs';
 $lang['sitetools'] = '<b>Site Tools</b><br />Remove the selected site tools. In the Dokuwiki template Site Tools are located at the top of the template.';
-$lang['pagetools'] = '<b>Page Tools</b><br />Remove the selected page tools. In the Dokuwiki template these are located along the right-hand side of the template.  You can remove non-standard tools, using the input box:  enter them as a comma separated list of unique words from their query strings or urls.';
+$lang['pagetools'] = '<b>Page Tools</b><br />Remove the selected page tools. In the Dokuwiki template these are located along the right-hand side of the template.  You can remove non-standard tools, using the input box:  enter them as a comma separated list of unique words from their query strings or urls.'
+    .  ' <code>Revert</code> stops attackers from  reverting pages to old revisions.';
 $lang['profile'] = 'Remove User Profile link';
 $lang['restricted_group'] = 'Name of group which is restricted from accessing the User Profile dialog. If no group is assigned and the <code>profile</code> option is true, all users will have the User Profile link removed.';
 $lang['search'] = 'Remove Search box';
