@@ -143,7 +143,7 @@ jQuery("div.mobileTools option") .each(function(index, opt) {
         if(opt.value.match(regex))  jQuery(this).hide();
     }
 });
-//sprintdoc: #dokuwiki__usertools > ul > li.admin 
+
 if(acl && JSINFO['tmplft_sitetools']) {
     var regex = new RegExp(JSINFO['tmplft_sitetools'].replace(/,/g,"|"));
     jQuery( "#dokuwiki__sitetools a,#sidebar-site-tools a,#dokuwiki__usertools > ul > li a").each(function( index ) {  

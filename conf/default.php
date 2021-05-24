@@ -1,6 +1,6 @@
 <?php
 $conf['sitetools'] = '';
-$conf['pagetools'] = '';
+$conf['pagetools'] = 'revert';
 $conf['profile'] = 0;
 $conf['search'] = 0;
 $conf['acl_all'] ='READ';
