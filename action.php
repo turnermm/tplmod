@@ -303,7 +303,7 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
                 $repl = array("","","backlink");     
                 $pagetools=strtolower(preg_replace($pat, $repl,$pagetools));
                 if(strpos($pagetools,'all') !== false) {
-                   $pagetools_conf = 'edit,revisions,backlink,subscribe';
+                   $pagetools_conf = 'edit,revisions,backlink,subscribe,revert';
                    $pagetools  = '\w+';               
                 }                
                 $JSINFO['tmplft_pagetools'] = $pagetools;         
@@ -388,6 +388,11 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
 	   if(strpos($JSINFO['tmplft_actions'],$act) === false) { // if allowed action, allow		 
 		   return 1;
 	   }	   
+       
+         if($act == 'revert') {	
+               $event->data = 'login';
+              return 1;
+         }
 	    $event->data = 'show';
         return 1;
    }	
