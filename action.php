@@ -164,8 +164,8 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
                     $restricted = true;
                 }
            }
-  
-           if( $restricted && !empty($profile)) {
+          
+           if( $restricted && !empty($profile) || !$restricted_group && !empty($profile)) {
                $JSINFO['tmplft_profile'] = '1';
            }
            else {
