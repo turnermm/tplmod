@@ -7,7 +7,7 @@ $lang['pagetools'] = '<b>Page Tools</b><br />Remove the selected page tools. In 
 $lang['profile'] = 'Remove User Profile link';
 $lang['restricted_group'] = 'Name of group which is restricted from accessing the User Profile dialog. If no group is assigned and the <code>profile</code> option is true, all users will have the User Profile link removed.';
 $lang['search'] = 'Remove Search box';
-$lang['taglines'] = "Comma separated list of taglines";
+$lang['taglines'] = "Comma separated list of taglines. Requires default tagline in dokuwiki's <a href ='https://www.dokuwiki.org/config:tagline'>tagline</a> setting.";
 $lang['acl_all'] = 'The ACL level at which users are barred from access to the sitetoools and pagetools. Users with ACL levels equal to or less than this level will be barred from access to these tools';
 $lang['dateorip'] = 'Rotate logos, tag lines, and wiki names  by ip address or days of the week. Select  <code>NEITHER</code> if you do not want rotation.';
 $lang['rotatewhich'] = "If rotating the logo and/or tag line, select which to rotate";
