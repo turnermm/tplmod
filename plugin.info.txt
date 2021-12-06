@@ -1,7 +1,7 @@
 base   tplmod
 author Myron Turner
 email  turnermm02@shaw.ca
-date 2021-08-22
+date 2021-12-06
 name   tplmod
 desc   Modify template tools, logo image, tag line, ui language
 url    https://www.dokuwiki.org/plugin:tplmod
