@@ -12,6 +12,7 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
         $controller->register_hook('MENU_ITEMS_ASSEMBLY', 'AFTER', $this, 'addsvgbutton', array());
 		$controller->register_hook('ACTION_ACT_PREPROCESS', 'BEFORE', $this, 'handle_act');
         $controller->register_hook('HTML_UPDATEPROFILEFORM_OUTPUT', 'BEFORE', $this, 'handle_profile_form');            
+        $controller->register_hook('FORM_UPDATEPROFILE_OUTPUT', 'BEFORE', $this, 'handle_profile_form');        
         $controller->register_hook('AJAX_CALL_UNKNOWN', 'BEFORE', $this,'_ajax_call');             
   		
     }
@@ -59,7 +60,7 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
          if(isset($ar[$client])) {
              $lan = $ar[$client];
          }    
-         $pos = $event->data->findElementByAttribute('type', 'reset');
+
          $_form =  "\n" . '</div></form><br /><form name="tplmodform" action="#"><div class="no">';
          $_form.= '<fieldset ><legend>' . $this->getLang('uprofile_title') .'</legend>';
             
@@ -87,7 +88,16 @@ class action_plugin_tplmod extends DokuWiki_Action_Plugin {
          $_form.= '<br /><br /><input type="button" value="Save" class="button" ' . "onclick='tplmod_setui_lang(this.form.tplmod_selector.value,this.form.tplmod_client.value,this.form.tplmod_selector);' />&nbsp;";
          $_form.= '<input type="reset" value="Reset" class="button" />';
          $_form.= '</fieldset>';           
+         if(is_a($event->data,\dokuwiki\Form\Form::class)) {       
+            $pos = $event->data->findPositionByAttribute('type','reset');
+            $pos+=2;
+            $event->data->addHTML($_form,$pos);
+         }
+         else {
+            $pos = $event->data->findElementByAttribute('type', 'reset');        
          $event->data->insertElement($pos+2, $_form);
+         }         
+        
     }		
     
     function dwstarted(DOKU_EVENT $event, $param) {
