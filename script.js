@@ -10,7 +10,7 @@ if(JSINFO['tmplft_template'] == 'bootstrap3') {
 	tplmod_aside_width = parseInt(jQuery("aside#dokuwiki__aside").css('width')); 
 	tplmod_content_width = parseInt(jQuery("article#dokuwiki__content").css('width'));
 }
-else {
+else if (jQuery("nav#dokuwiki__aside").length ) {
 	tplmod_aside_width = parseInt(jQuery("nav#dokuwiki__aside").css('width')); 
 	tplmod_content_width = parseInt(jQuery("main#dokuwiki__content").css('width'));	
 }
@@ -199,7 +199,7 @@ function tplmod_toggle_aside() {
 		jQuery("aside#dokuwiki__aside").toggle(display);
 		jQuery("article#dokuwiki__content").css("width", content_width +'px' );
 	}
-    else {
+    else if (jQuery("nav#dokuwiki__aside").length ) {
 	    jQuery("nav#dokuwiki__aside").toggle(display);
         jQuery("main#dokuwiki__content").css("width", content_width +'px' );
     }  
