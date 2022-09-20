@@ -1,6 +1,7 @@
 var tplmod_aside_width = 0; 
 var tplmod_content_width = 0;
 var tplmod_toggle_open = 0;
+var tplmod_nav_aside = 0;
 var tplmod_content_padding = {'b':0,'t':0};
 jQuery(document).ready(function() { 
 
@@ -9,6 +10,11 @@ jQuery(document).ready(function() {
 if(JSINFO['tmplft_template'] == 'bootstrap3') {
 	tplmod_aside_width = parseInt(jQuery("aside#dokuwiki__aside").css('width')); 
 	tplmod_content_width = parseInt(jQuery("article#dokuwiki__content").css('width'));
+}
+else if(jQuery("nav#dokuwiki__aside").length) {
+        tplmod_nav_aside = true;
+	tplmod_aside_width = parseInt(jQuery("nav#dokuwiki__aside").css('width')); 
+	tplmod_content_width = parseInt(jQuery("main#dokuwiki__content").css('width'));	
 }
 else {
 	tplmod_aside_width = parseInt(jQuery("div#dokuwiki__aside").css('width')); 
@@ -173,8 +179,11 @@ function tplmod_toggle_aside() {
    	if(JSINFO['tmplft_template'] == 'bootstrap3') {	
         content_width = parseInt(jQuery("article#dokuwiki__content").css('width'));
 	}
+	else if(jQuery("main#dokuwiki__content").length) {
+	    content_width = parseInt(jQuery("main#dokuwiki__content").css('width'))	
+	}
 	else {
-	    content_width = parseInt(jQuery("div#dokuwiki__content").css('width'))	
+        content_width = parseInt(jQuery("div#dokuwiki__content").css('width'))	
 	}
     if(content_width == tplmod_toggle_open) {
         content_width = tplmod_content_width;
@@ -199,10 +208,14 @@ function tplmod_toggle_aside() {
 		jQuery("aside#dokuwiki__aside").toggle(display);
 		jQuery("article#dokuwiki__content").css("width", content_width +'px' );
 	}
-    else {
-	    jQuery("div#dokuwiki__aside").toggle(display);
-        jQuery("div#dokuwiki__content").css("width", content_width +'px' );
+    else if(tplmod_nav_aside) {
+	    jQuery("nav#dokuwiki__aside").toggle(display);
+        jQuery("main#dokuwiki__content").css("width", content_width +'px' );
     }  
+    else {
+        jQuery("div#dokuwiki__aside").toggle(display);
+        jQuery("div#dokuwiki__content").css("width", content_width +'px' );
+    }
 }
  function tplmod_setui_lang(m,client,dw_val_obj) {
        
